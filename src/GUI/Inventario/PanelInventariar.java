@@ -113,8 +113,11 @@ public class PanelInventariar extends javax.swing.JPanel {
      * @param evt
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        ControlGui control = new ControlGui();
-        control.agregarAInventario(this);
+        try {
+            ControlGui control = new ControlGui();
+            control.agregarAInventario(this);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     /**

@@ -6,7 +6,10 @@
 package GUI.Inventario;
 
 import GUI.Control.ControlGui;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
+import objetosNegocio.Modelo;
 
 /**
  *
@@ -118,22 +121,25 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
      * Este metodo se encarga de buscar si el nombre de un modelo esta dentro de
      * la base de datos. Si el nombre esta en la base de datos se agregara un
      * componente JLabel al panel con el nombre del modelo.
-     * 
+     *
      * Se pueden agregar 1 o mas componentes JLabel al panel.
      *
      * @param evt
      */
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         ControlGui control = new ControlGui();
-        String modelo = control.obtenModelo(textFieldBuscar.getText());
+        Modelo modelo = control.obtenModelo(textFieldBuscar.getText());
+        listaModelos.add(modelo);
 
-        JLabel label = new JLabel(modelo);
-        panel.add(label);
-        panel.revalidate();
-        panel.repaint();
+        if (modelo != null) {
+            JLabel label = new JLabel(modelo.getNombre());
+            panel.add(label);
+            panel.revalidate();
+            panel.repaint();
+        }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
-
+    private List<Modelo> listaModelos = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonContinuar;

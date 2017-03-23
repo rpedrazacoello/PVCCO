@@ -9,6 +9,7 @@ import GUI.Inventario.PanelInventariar;
 import GUI.Test.PanelTest;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
 import negocios.admInventario.FacAdmInventario;
 import objetosNegocio.*;
 import pvcco.interfaces.IntAdmInventario;
@@ -31,25 +32,73 @@ public class ControlGui {
         List<PanelTest> listaPanelTest = panelInventariar.getListaPanelTest();
         PanelTest panelTest = new PanelTest();
         Modelo modelo = new Modelo();
-        
+        Talla talla = new Talla();
+        List<String> listaCantidades;
+        List<String> listaTallas;
+
+        /**
+         * Como un PanelInventariar puede contener 1 o mas PanelText, usamos un
+         * for para obtener la informacion de cada uno de los PanelTest
+         */
         for (int i = 0; i < listaPanelTest.size(); i++) {
             panelTest = listaPanelTest.get(i);
-            modelo.setNombre(panelTest.getModelo());
-            modelo.setPrecio(panelTest.getPrecio());
-            
-            panelTest.getPanelTalla().getListaCantidadesTexto();
-            panelTest.getPanelTalla().getListaTallasTexto();
+            try {
+                modelo.setIdModelo((new Integer(admInventario.obtenListaModelos().size()).toString()));
+                modelo.setNombre(panelTest.getModelo());
+                modelo.setPrecio(panelTest.getPrecio());
+            } catch (Exception e) {
+            }
+
+            /**
+             * De los PanelTalla que hay dentro de los PanelTest obtenemos la
+             * informacion de las tallas y las cantidades que hay de cada talla.
+             */
+            listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
+            listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
+
+            /**
+             * Con este for sacamos los datos de las listas y los metemos a un
+             * objeto de tipo Talla. El cual despues pasara a ser agregado a la
+             * Base de datos.
+             */
+            for (int j = 0; j < listaCantidades.size(); j++) {
+                try {
+                    talla.setIdModelo(modelo);
+                    talla.setIdTalla((new Integer(admInventario.obtenListaTallas().size()).toString()));
+                    talla.setTalla(listaTallas.get(j));
+                    talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
+                    talla.setInventarioApartado(0);
+                    talla.setNoCodigoDeBarras(talla.getIdTalla());
+                    admInventario.agregarProductoAInventario(talla);
+                } catch (Exception e) {
+                }
+            }
         }
     }
 
     /**
-     * Este metodo se encarga de mandar el nombre de un modelo y recibe el
-     * nombre del modelo si este si existe en la base de datos.
+     * Este metodo recibe el nombre de un modelo, el metodo lo busca en la base
+     * de datos y si el modelo con ese nombre existe, regresa el modelo. Si no
+     * existe regresa null.
      *
-     * @param text
-     * @return String
+     * @param modelo
+     * @return
      */
-    public String obtenModelo(String nombreDelModelo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Modelo obtenModelo(String modelo) {
+        List<Modelo> modelos;
+        FacAdmInventario admInventario = new FacAdmInventario();
+
+        try {
+            modelos = admInventario.obtenListaModelos();
+            for (int i = 0; i < modelos.size(); i++) {
+                if (modelos.get(i).getNombre().equals(modelo)) {
+                    return modelos.get(i);
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        return null;
     }
+
 }
