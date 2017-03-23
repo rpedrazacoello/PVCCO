@@ -36,7 +36,6 @@ public class ControlGui {
             panelTest = listaPanelTest.get(i);
             modelo.setNombre(panelTest.getModelo());
             modelo.setPrecio(panelTest.getPrecio());
-            modelo.setIdModelo(admInventario.getIdUltimoModelo());
             
             panelTest.getPanelTalla().getListaCantidadesTexto();
             panelTest.getPanelTalla().getListaTallasTexto();
