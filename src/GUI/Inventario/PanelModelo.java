@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Test;
+package GUI.Inventario;
 
 /**
  *
  * @author ZmSky
- *
- * Los componentes del tipo "PanelTest" tienen componentes del tipo "PanelTalla"
- * dentro del mismo. Estos componentes se utilizan al momento de querer agregar
- * al inventario Productos Nuevos o Registrados.
+
+ Los componentes del tipo "PanelModelo" tienen componentes del tipo "PanelTalla"
+ dentro del mismo. Estos componentes se utilizan al momento de querer agregar
+ al inventario Productos Nuevos o Registrados.
  */
-public class PanelTest extends javax.swing.JPanel {
+public class PanelModelo extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelTest
      */
-    public PanelTest() {
+    public PanelModelo() {
         initComponents();
 
         PanelTalla panel = new PanelTalla();
@@ -63,16 +63,23 @@ public class PanelTest extends javax.swing.JPanel {
     private void initComponents() {
 
         textFieldModelo = new javax.swing.JTextField();
-        panelTalla = new GUI.Test.PanelTalla();
+        panelTalla = new GUI.Inventario.PanelTalla();
         jLabel1 = new javax.swing.JLabel();
         textFieldPrecio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setMinimumSize(new java.awt.Dimension(711, 96));
 
-        jLabel1.setText("Modelo");
+        textFieldModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldModeloActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Precio");
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("Precio Unitario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -83,11 +90,12 @@ public class PanelTest extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(textFieldModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                    .addComponent(textFieldPrecio))
-                .addGap(28, 28, 28)
+                    .addComponent(textFieldPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(textFieldModelo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(panelTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,16 +106,21 @@ public class PanelTest extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panelTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textFieldModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldModeloActionPerformed
 
 
     /**
@@ -120,7 +133,8 @@ public class PanelTest extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private GUI.Test.PanelTalla panelTalla;
+    private javax.swing.JSeparator jSeparator1;
+    private GUI.Inventario.PanelTalla panelTalla;
     private javax.swing.JTextField textFieldModelo;
     private javax.swing.JTextField textFieldPrecio;
     // End of variables declaration//GEN-END:variables

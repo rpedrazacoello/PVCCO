@@ -10,6 +10,7 @@ import GUI.Apartados.FrameCancelarApartado;
 import GUI.Apartados.PanelApartado;
 import GUI.Inventario.FrameEscanearParaInventariar;
 import GUI.Inventario.PanelInventariar;
+import java.awt.Component;
 
 /**
  *
@@ -25,6 +26,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      */
     public FramePrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +34,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(20);
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -45,7 +48,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemCancelarApartado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        jPanel1.setName("panelCosas"); // NOI18N
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(jPanel1);
 
@@ -114,7 +124,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,6 +197,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         frameCancelarApartado.setVisible(true);
     }//GEN-LAST:event_menuItemCancelarApartadoActionPerformed
 
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        requestFocus();
+    }//GEN-LAST:event_jPanel1MouseEntered
+    
+    
+    
     /**
      * ATRIBUTOS DE LA CLASE
      *

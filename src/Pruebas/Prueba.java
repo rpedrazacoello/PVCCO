@@ -13,8 +13,12 @@ public class Prueba {
     public static void main(String[] args){
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
-                WebLookAndFeel.install();
-                new FrameIniciarSesion().setVisible(true);
+                try{
+                    WebLookAndFeel.install();
+                    new FrameIniciarSesion().setVisible(true);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }

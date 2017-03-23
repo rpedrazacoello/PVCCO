@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.Test;
+package GUI.Inventario;
 
 import java.awt.TextField;
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ public class PanelTalla extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
         panelCosas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
@@ -56,26 +57,9 @@ public class PanelTalla extends javax.swing.JPanel {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(161, 150));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(161, 150));
 
-        javax.swing.GroupLayout panelCosasLayout = new javax.swing.GroupLayout(panelCosas);
-        panelCosas.setLayout(panelCosasLayout);
-        panelCosasLayout.setHorizontalGroup(
-            panelCosasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCosasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelCosasLayout.setVerticalGroup(
-            panelCosasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCosasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCosasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        panelCosas.setLayout(new javax.swing.BoxLayout(panelCosas, javax.swing.BoxLayout.LINE_AXIS));
+        panelCosas.add(jPanel1);
+        panelCosas.add(jPanel2);
 
         jScrollPane1.setViewportView(panelCosas);
 

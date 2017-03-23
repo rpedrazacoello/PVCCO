@@ -38,7 +38,7 @@ public class FrameCancelarApartado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Apartados Vencidos");
 
