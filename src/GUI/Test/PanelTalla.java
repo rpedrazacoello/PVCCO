@@ -6,12 +6,17 @@
 package GUI.Test;
 
 import java.awt.TextField;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
 /**
  *
  * @author ZmSky
+ *
+ * Esta clase crea metodos del tipo PanelTalla, estos paneles se encuentran
+ * dentro de los componentes de tipo PanelTest.
  */
 public class PanelTalla extends javax.swing.JPanel {
 
@@ -20,7 +25,7 @@ public class PanelTalla extends javax.swing.JPanel {
      */
     public PanelTalla() {
         initComponents();
-        
+
         panelCosas.revalidate();
         panelCosas.repaint();
     }
@@ -43,7 +48,7 @@ public class PanelTalla extends javax.swing.JPanel {
         jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
         jPanel2 = new javax.swing.JPanel();
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
-        jButton1 = new javax.swing.JButton();
+        agregarColumna = new javax.swing.JButton();
 
         jLabel1.setText("Talla");
 
@@ -59,8 +64,8 @@ public class PanelTalla extends javax.swing.JPanel {
             .addGroup(panelCosasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelCosasLayout.setVerticalGroup(
@@ -75,10 +80,10 @@ public class PanelTalla extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(panelCosas);
 
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        agregarColumna.setText("+");
+        agregarColumna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                agregarColumnaActionPerformed(evt);
             }
         });
 
@@ -89,7 +94,7 @@ public class PanelTalla extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
@@ -100,7 +105,7 @@ public class PanelTalla extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(agregarColumna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -115,29 +120,79 @@ public class PanelTalla extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(agregarColumna)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * Este metodo entra en accion cuando se da click al boton "+", este se
+     * encarga de agregar una columna mas de textFields al componente
+     * PanelPantalla
+     *
+     * @param evt
+     */
+    private void agregarColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarColumnaActionPerformed
         TextField a = new TextField();
         TextField b = new TextField();
-        
+
         a.setSize(40, 20);
         b.setSize(40, 20);
-        
-        jPanel1.add(a);
-        jPanel2.add(b);
-        
+
+        listaTallas.add(a);
+        listaCantidades.add(b);
+
+        jPanel1.add(listaTallas.get(listaTallas.size() - 1));
+        jPanel2.add(listaCantidades.get(listaTallas.size() - 1));
+
         getRootPane().revalidate();
         getRootPane().repaint();
         getRootPane().updateUI();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_agregarColumnaActionPerformed
 
+    /**
+     * Este metodo te regresa una lista con todas las tallas de un componente de
+     * tipo PanelTalla.
+     *
+     * @return List<String>
+     */
+    public List<String> getListaTallasTexto() {
+        listaTallasTexto = getListaTexto(this.listaTallas);
+        return this.listaTallasTexto;
+    }
 
+    /**
+     * Este metodo te regresa una lista con todas las cantides de tallas de un
+     * componente de tipo PanelTalla
+     *
+     * @return
+     */
+    public List<String> getListaCantidadesTexto() {
+        listaCantidadesTexto = getListaTexto(this.listaCantidades);
+        return this.listaCantidadesTexto;
+    }
+
+    /**
+     * Este metodo recibe una List<TextField> y regresa una lista de String con
+     * los textos de los TextField
+     *
+     * @param lista
+     * @return List<String>
+     */
+    private List<String> getListaTexto(List<TextField> lista) {
+        List<String> listaTexto = new ArrayList<>();
+        for (int i = 0; i < lista.size(); i++) {
+            listaTexto.add(lista.get(i).getText());
+        }
+        return listaTexto;
+    }
+
+    private List<String> listaTallasTexto = new ArrayList<>();
+    private List<String> listaCantidadesTexto = new ArrayList<>();
+    private List<TextField> listaTallas = new ArrayList<>();
+    private List<TextField> listaCantidades = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton agregarColumna;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

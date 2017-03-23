@@ -26,6 +26,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Producto Registrado"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAgregarProductoRegistradoActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -35,6 +38,37 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Apartado"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemAgregarApartado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Apartado"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAgregarApartadoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemModificarApartado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modificar Apartado"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemAbonarApartado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Abonar Apartado"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAbonarApartadoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemCancelarApartado">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cancelar Apartado"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCancelarApartadoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -62,12 +96,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="905" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="1052" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="489" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="624" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

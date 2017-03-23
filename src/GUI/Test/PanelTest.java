@@ -23,6 +23,22 @@ public class PanelTest extends javax.swing.JPanel {
         revalidate();
         repaint();
     }
+    
+    public String getTextFieldModelo(){
+        return this.textFieldModelo.getText();
+    }
+    
+    public String getModelo(){
+        return this.textFieldModelo.getText();
+    }
+    
+    public PanelTalla getPanelTalla(){
+        return this.panelTalla;
+    }
+    
+    public float getPrecio(){
+        return new Float(textFieldPrecio.getText());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,14 +49,17 @@ public class PanelTest extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTalla2 = new GUI.Test.PanelTalla();
-        panelTalla3 = new GUI.Test.PanelTalla();
-        jTextField1 = new javax.swing.JTextField();
-        panelTalla4 = new GUI.Test.PanelTalla();
+        textFieldModelo = new javax.swing.JTextField();
+        panelTalla = new GUI.Test.PanelTalla();
+        jLabel1 = new javax.swing.JLabel();
+        textFieldPrecio = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(711, 96));
 
-        jTextField1.setText("Modelo");
+        jLabel1.setText("Modelo");
+
+        jLabel2.setText("Precio");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -48,30 +67,42 @@ public class PanelTest extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textFieldModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(textFieldPrecio))
+                    .addComponent(jLabel2))
                 .addGap(53, 53, 53)
-                .addComponent(panelTalla4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(0, Short.MAX_VALUE))
+                .addComponent(panelTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(349, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelTalla4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelTalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
-    private GUI.Test.PanelTalla panelTalla2;
-    private GUI.Test.PanelTalla panelTalla3;
-    private GUI.Test.PanelTalla panelTalla4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private GUI.Test.PanelTalla panelTalla;
+    private javax.swing.JTextField textFieldModelo;
+    private javax.swing.JTextField textFieldPrecio;
     // End of variables declaration//GEN-END:variables
 }
