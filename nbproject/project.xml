@@ -29,7 +29,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>PVCCO_-_ObjetosNegocio</foreign-project>
+                <foreign-project>PVCCO_-_ObjetosNegocio-1</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

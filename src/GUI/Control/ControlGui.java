@@ -28,6 +28,9 @@ public class ControlGui {
      * @param panelInventariar
      */
     public void agregarAInventario(PanelInventariar panelInventariar) {
+        /**
+         * PRUEBA PROBADA PROBANDO
+         */
         IntAdmInventario admInventario = new FacAdmInventario();
         List<PanelTest> listaPanelTest = panelInventariar.getListaPanelTest();
         PanelTest panelTest = new PanelTest();
