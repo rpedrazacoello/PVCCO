@@ -9,7 +9,9 @@ import GUI.Inventario.PanelInventariar;
 import GUI.Test.PanelTest;
 import java.util.ArrayList;
 import java.util.List;
+import negocios.admInventario.FacAdmInventario;
 import objetosNegocio.*;
+import pvcco.interfaces.IntAdmInventario;
 
 /**
  *
@@ -25,10 +27,19 @@ public class ControlGui {
      * @param panelInventariar
      */
     public void agregarAInventario(PanelInventariar panelInventariar) {
+        IntAdmInventario admInventario = new FacAdmInventario();
         List<PanelTest> listaPanelTest = panelInventariar.getListaPanelTest();
+        PanelTest panelTest = new PanelTest();
         Modelo modelo = new Modelo();
+        
         for (int i = 0; i < listaPanelTest.size(); i++) {
-            modelo.setPrecio(listaPanelTest.get(i).getPrecio());
+            panelTest = listaPanelTest.get(i);
+            modelo.setNombre(panelTest.getModelo());
+            modelo.setPrecio(panelTest.getPrecio());
+            modelo.setIdModelo(admInventario.getIdUltimoModelo());
+            
+            panelTest.getPanelTalla().getListaCantidadesTexto();
+            panelTest.getPanelTalla().getListaTallasTexto();
         }
     }
 

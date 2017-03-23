@@ -141,12 +141,11 @@ public class PanelTalla extends javax.swing.JPanel {
         listaTallas.add(a);
         listaCantidades.add(b);
 
-        jPanel1.add(listaTallas.get(listaTallas.size() - 1));
-        jPanel2.add(listaCantidades.get(listaTallas.size() - 1));
+        jPanel1.add(a);
+        jPanel2.add(b);
 
         getRootPane().revalidate();
         getRootPane().repaint();
-        getRootPane().updateUI();
     }//GEN-LAST:event_agregarColumnaActionPerformed
 
     /**
