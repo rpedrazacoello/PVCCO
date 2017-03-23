@@ -8,6 +8,12 @@ package GUI.Inventario;
 /**
  *
  * @author Roberto Pedraza
+ *
+ * Esta clase crea componentes de tipo Panel. Dentro de estos componentes hay
+ * componentes del tipo "PanelBajaInventario".
+ *
+ * Los componentes que esta clase crea se utilizan al momento de realizar bajas
+ * en el inventario.
  */
 public class PanelBajaInventario2 extends javax.swing.JPanel {
 

@@ -8,6 +8,9 @@ package GUI.Apartados;
 /**
  *
  * @author Roberto Pedraza
+ *
+ * Este es el panel utilizado para agregar un Apartado. Cuando este panel se
+ * manda a llamar se muestra en el Frame "FramePrincipal"
  */
 public class PanelApartado extends javax.swing.JPanel {
 
@@ -30,13 +33,13 @@ public class PanelApartado extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         labelNombreVendedor = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textFieldCliente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         labelFechaApartado = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         labelFechaVencimiento = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        textFieldTelefono = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextField3 = new javax.swing.JTextField();
@@ -45,9 +48,9 @@ public class PanelApartado extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         labelMinimoAbonar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        textFieldCantidarAbonada = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        textFieldPagoCon = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         labelPrecioTotal = new javax.swing.JLabel();
         botonRealizarApartado = new javax.swing.JButton();
@@ -58,7 +61,7 @@ public class PanelApartado extends javax.swing.JPanel {
 
         jLabel2.setText("Cliente:");
 
-        jTextField1.setToolTipText("");
+        textFieldCliente.setToolTipText("");
 
         jLabel3.setText("Fecha de Apartado:");
 
@@ -110,7 +113,7 @@ public class PanelApartado extends javax.swing.JPanel {
 
         jLabel8.setText("Cantidad Abonada:");
 
-        jTextField4.setToolTipText("");
+        textFieldCantidarAbonada.setToolTipText("");
 
         jLabel9.setText("Pago Con:");
 
@@ -132,7 +135,7 @@ public class PanelApartado extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2))
+                                .addComponent(textFieldTelefono))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -140,7 +143,7 @@ public class PanelApartado extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(textFieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(283, 283, 283)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -178,11 +181,11 @@ public class PanelApartado extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5))
+                                .addComponent(textFieldPagoCon))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(textFieldCantidarAbonada, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonRealizarApartado)
                         .addGap(103, 103, 103))))
@@ -199,13 +202,13 @@ public class PanelApartado extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(textFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -237,11 +240,11 @@ public class PanelApartado extends javax.swing.JPanel {
                         .addGap(26, 26, 26)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldCantidarAbonada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldPagoCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonRealizarApartado))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
@@ -263,15 +266,15 @@ public class PanelApartado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel labelFechaApartado;
     private javax.swing.JLabel labelFechaVencimiento;
     private javax.swing.JLabel labelMinimoAbonar;
     private javax.swing.JLabel labelNombreVendedor;
     private javax.swing.JLabel labelPrecioTotal;
+    private javax.swing.JTextField textFieldCantidarAbonada;
+    private javax.swing.JTextField textFieldCliente;
+    private javax.swing.JTextField textFieldPagoCon;
+    private javax.swing.JTextField textFieldTelefono;
     // End of variables declaration//GEN-END:variables
 }

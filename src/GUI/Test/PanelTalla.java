@@ -25,7 +25,6 @@ public class PanelTalla extends javax.swing.JPanel {
      */
     public PanelTalla() {
         initComponents();
-
         panelCosas.revalidate();
         panelCosas.repaint();
     }
@@ -187,6 +186,14 @@ public class PanelTalla extends javax.swing.JPanel {
         return listaTexto;
     }
 
+    /**
+     * ATRIBUTOS DE LA CLASE
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     private List<String> listaTallasTexto = new ArrayList<>();
     private List<String> listaCantidadesTexto = new ArrayList<>();
     private List<TextField> listaTallas = new ArrayList<>();

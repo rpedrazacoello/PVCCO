@@ -8,6 +8,10 @@ package GUI.Test;
 /**
  *
  * @author ZmSky
+ *
+ * Los componentes del tipo "PanelTest" tienen componentes del tipo "PanelTalla"
+ * dentro del mismo. Estos componentes se utilizan al momento de querer agregar
+ * al inventario Productos Nuevos o Registrados.
  */
 public class PanelTest extends javax.swing.JPanel {
 
@@ -16,27 +20,36 @@ public class PanelTest extends javax.swing.JPanel {
      */
     public PanelTest() {
         initComponents();
-        
+
         PanelTalla panel = new PanelTalla();
         add(panel);
-        
+
         revalidate();
         repaint();
     }
-    
-    public String getTextFieldModelo(){
+
+
+    /**
+     * Regresa el texto de FieldModelo
+     * @return String
+     */
+    public String getModelo() {
         return this.textFieldModelo.getText();
     }
-    
-    public String getModelo(){
-        return this.textFieldModelo.getText();
-    }
-    
-    public PanelTalla getPanelTalla(){
+
+    /**
+     * Regresa el componente de tipo "PanelTalla"
+     * @return PanelTalla
+     */
+    public PanelTalla getPanelTalla() {
         return this.panelTalla;
     }
-    
-    public float getPrecio(){
+
+    /**
+     * Regresa el precio del modelo.
+     * @return float
+     */
+    public float getPrecio() {
         return new Float(textFieldPrecio.getText());
     }
 
@@ -98,6 +111,13 @@ public class PanelTest extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    /**
+     * ATRIBUTOS DE LA CLASE
+     * 
+     * 
+     * 
+     * 
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

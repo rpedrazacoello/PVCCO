@@ -9,7 +9,6 @@ import GUI.Apartados.FrameAbonarApartado;
 import GUI.Apartados.FrameCancelarApartado;
 import GUI.Apartados.PanelApartado;
 import GUI.Inventario.FrameEscanearParaInventariar;
-import GUI.Inventario.PanelDetalladoInventariar;
 import GUI.Inventario.PanelInventariar;
 
 /**
@@ -135,11 +134,26 @@ public class FramePrincipal extends javax.swing.JFrame {
         jPanel1.updateUI();
     }//GEN-LAST:event_menuItemAgregarProductoNuevoActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando se le da click a la opcion "Agregar
+     * producto registrado" en la barra de menu. Este se enccargara de hacer un
+     * Frame para escanear los modelos que se van a agregar al inventario.
+     *
+     * @param evt
+     */
     private void menuItemAgregarProductoRegistradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarProductoRegistradoActionPerformed
         FrameEscanearParaInventariar frameEscanearParaInventariar = new FrameEscanearParaInventariar();
         frameEscanearParaInventariar.setVisible(true);
     }//GEN-LAST:event_menuItemAgregarProductoRegistradoActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando el usuario da click a la opcion
+     * "Agregar Apartado" en la barra de menu. Este metodo se encarga de borrar
+     * el panel actual que esta en jPanel1 y modificar por un panel del tipo
+     * "PanelApartado"
+     *
+     * @param evt
+     */
     private void menuItemAgregarApartadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarApartadoActionPerformed
         PanelApartado panelApartado = new PanelApartado();
         jPanel1.removeAll();
@@ -147,11 +161,25 @@ public class FramePrincipal extends javax.swing.JFrame {
         jPanel1.updateUI();
     }//GEN-LAST:event_menuItemAgregarApartadoActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando el usuario da click a la opcion
+     * "Abonar apartado" en la barra de menu. Este metodo crecara un framde del
+     * tipo "FrameAbonarApartado" y se lo mostrara al usuario.
+     *
+     * @param evt
+     */
     private void menuItemAbonarApartadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbonarApartadoActionPerformed
         FrameAbonarApartado frameAbonarApartado = new FrameAbonarApartado();
         frameAbonarApartado.setVisible(true);
     }//GEN-LAST:event_menuItemAbonarApartadoActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando el usuario desea cancelar apartados
+     * que ya esten vencidos. El metodo creara un frame del tipo
+     * "FrameCancelarApartado" y se lo mostrara al usuario.
+     *
+     * @param evt
+     */
     private void menuItemCancelarApartadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCancelarApartadoActionPerformed
         FrameCancelarApartado frameCancelarApartado = new FrameCancelarApartado();
         frameCancelarApartado.setVisible(true);

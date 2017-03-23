@@ -114,10 +114,19 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este metodo se encarga de buscar si el nombre de un modelo esta dentro de
+     * la base de datos. Si el nombre esta en la base de datos se agregara un
+     * componente JLabel al panel con el nombre del modelo.
+     * 
+     * Se pueden agregar 1 o mas componentes JLabel al panel.
+     *
+     * @param evt
+     */
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         ControlGui control = new ControlGui();
         String modelo = control.obtenModelo(textFieldBuscar.getText());
-        
+
         JLabel label = new JLabel(modelo);
         panel.add(label);
         panel.revalidate();

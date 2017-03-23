@@ -17,15 +17,29 @@ import objetosNegocio.*;
  */
 public class ControlGui {
 
+    /**
+     * Este metodo se encargara de recibir un panel del tipo "PanelInventariar"
+     * con todos los datos que se van a agregar a la base de datos, para
+     * procesarlos y poder mandarlos hacia la base de datos.
+     *
+     * @param panelInventariar
+     */
     public void agregarAInventario(PanelInventariar panelInventariar) {
         List<PanelTest> listaPanelTest = panelInventariar.getListaPanelTest();
         Modelo modelo = new Modelo();
         for (int i = 0; i < listaPanelTest.size(); i++) {
             modelo.setPrecio(listaPanelTest.get(i).getPrecio());
-        }  
-    }  
+        }
+    }
 
-    public String obtenModelo(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Este metodo se encarga de mandar el nombre de un modelo y recibe el
+     * nombre del modelo si este si existe en la base de datos.
+     *
+     * @param text
+     * @return String
+     */
+    public String obtenModelo(String nombreDelModelo) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

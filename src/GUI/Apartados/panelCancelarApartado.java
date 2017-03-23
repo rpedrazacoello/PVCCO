@@ -8,6 +8,9 @@ package GUI.Apartados;
 /**
  *
  * @author Roberto Pedraza
+ *
+ * Al momento de querer cancelar un apartado, 1 o mas paneles de este tipo seran
+ * ingresados al Frame "FrameCancelarApartado"
  */
 public class panelCancelarApartado extends javax.swing.JPanel {
 
