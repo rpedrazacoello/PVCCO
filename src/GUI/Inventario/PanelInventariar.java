@@ -5,8 +5,10 @@
  */
 package GUI.Inventario;
 
+import GUI.Test.PanelTest;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
 
 /**
  *
@@ -19,10 +21,11 @@ public class PanelInventariar extends javax.swing.JPanel {
      */
     public PanelInventariar() {
         initComponents();
-        listaPanelDetalladoInventariar.add(new PanelDetalladoInventariar());
-        panelDetalladoInventariar.add(listaPanelDetalladoInventariar.get(0));
-        panelDetalladoInventariar.revalidate();
-        panelDetalladoInventariar.updateUI();
+        //listaPanelDetalladoInventariar.add(new PanelDetalladoInventariar());
+        jPanel1.add(new PanelTest());
+        
+        revalidate();
+        repaint();
     }
 
     /**
@@ -38,11 +41,11 @@ public class PanelInventariar extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        panelDetalladoInventariar = new javax.swing.JPanel();
         botonAgregarColumna = new javax.swing.JButton();
         botonAtras = new javax.swing.JButton();
         botonSiguiente = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Modelo");
@@ -55,10 +58,6 @@ public class PanelInventariar extends javax.swing.JPanel {
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
 
-        panelDetalladoInventariar.setPreferredSize(new java.awt.Dimension(600, 200));
-        panelDetalladoInventariar.setLayout(new java.awt.GridLayout());
-        jScrollPane1.setViewportView(panelDetalladoInventariar);
-
         botonAgregarColumna.setText("Agregar Columna");
         botonAgregarColumna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +69,11 @@ public class PanelInventariar extends javax.swing.JPanel {
 
         botonSiguiente.setText("Siguiente");
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+        jScrollPane2.setViewportView(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,19 +84,23 @@ public class PanelInventariar extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(botonSiguiente)
                 .addGap(47, 47, 47))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jSeparator1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1)
                         .addGap(125, 125, 125)
                         .addComponent(jLabel2)
                         .addGap(79, 79, 79)
                         .addComponent(jLabel3))
-                    .addComponent(botonAgregarColumna, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonAgregarColumna))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,11 +118,11 @@ public class PanelInventariar extends javax.swing.JPanel {
                         .addGap(18, 18, 18)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonAgregarColumna)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonSiguiente)
                     .addComponent(botonAtras))
                 .addGap(8, 8, 8))
@@ -122,7 +130,10 @@ public class PanelInventariar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarColumnaActionPerformed
+        jPanel1.add(new PanelTest());
         
+        revalidate();
+        repaint();
     }//GEN-LAST:event_botonAgregarColumnaActionPerformed
 
 
@@ -134,8 +145,8 @@ public class PanelInventariar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel panelDetalladoInventariar;
     // End of variables declaration//GEN-END:variables
 }
