@@ -53,11 +53,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setName("panelCosas"); // NOI18N
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
-            }
-        });
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(jPanel1);
 
@@ -206,10 +201,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         FrameCancelarApartado frameCancelarApartado = new FrameCancelarApartado();
         frameCancelarApartado.setVisible(true);
     }//GEN-LAST:event_menuItemCancelarApartadoActionPerformed
-
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-        requestFocus();
-    }//GEN-LAST:event_jPanel1MouseEntered
 
     /**
      * Este metodo entra en accion cuando el usuario selecciona la opcion baja a

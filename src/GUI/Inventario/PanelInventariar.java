@@ -6,8 +6,12 @@
 package GUI.Inventario;
 
 import GUI.Control.ControlGui;
+import java.awt.Container;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import objetosNegocio.Modelo;
 
 /**
@@ -169,15 +173,38 @@ public class PanelInventariar extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarColumnaActionPerformed
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-        try {
-            ControlGui control = new ControlGui();
-            control.agregarAInventario(this);
-        } catch (Exception e) {
-        }
+        FrameValidarInventario validacion = new FrameValidarInventario(listaPanelTest);
+        final PanelInventariar panel = this;
+        
+        validacion.addWindowListener(new WindowListener() {
+            @Override
+            public void windowClosing(WindowEvent we) {}
+            public void windowOpened(WindowEvent we) { }
+            public void windowClosed(WindowEvent we) {
+                if(validacion.getAccion() != null && validacion.getAccion().equalsIgnoreCase("Terminar")){
+                    ControlGui control = new ControlGui();
+                    System.out.println("Agregando al inventario..");
+                    
+                    if(control.agregarAInventario(panel)){
+                        System.out.println("Realizado");
+                        JOptionPane.showMessageDialog(null, "Se ha realizado el agregado al inventario.");
+                        
+                        Container parent = panel.getParent();
+                        parent.remove(panel);
+                        parent.repaint();
+                    }
+                }
+            }
+            public void windowIconified(WindowEvent we) { }
+            public void windowDeiconified(WindowEvent we) { }
+            public void windowActivated(WindowEvent we) {}
+            public void windowDeactivated(WindowEvent we) {}
+        });
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         getParent().remove(this);
+        getParent().repaint();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     /**

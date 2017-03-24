@@ -31,69 +31,86 @@ public class ControlGui {
      *
      * @param panelInventariar
      */
-    public void agregarAInventario(PanelInventariar panelInventariar) throws Exception {
-        IntAdmInventario admInventario = new FacAdmInventario();
-        List<PanelModelo> listaPanelTest = panelInventariar.getListaPanelTest();
-
-        /**
-         * Como un PanelInventariar puede contener 1 o mas PanelText, usamos un
-         * for para obtener la informacion de cada uno de los PanelTest
-         */
-        for (int i = 0; i < listaPanelTest.size(); i++) {
-            PanelModelo panelTest = listaPanelTest.get(i);
-            Modelo modelo = new Modelo();
-            Talla talla = new Talla();
+    public boolean agregarAInventario(PanelInventariar panelInventariar){
+        try{
+            IntAdmInventario admInventario = new FacAdmInventario();
+            List<PanelModelo> listaPanelTest = panelInventariar.getListaPanelTest();
 
             /**
-             * Esto sirve para verificar que los campos no esten vacios. En dado
-             * caso de que si esten, no se conectara a la base de datos hasta
-             * que se encuentre un modelo que si tenga los datos completos.
+             * Como un PanelInventariar puede contener 1 o mas PanelText, usamos un
+             * for para obtener la informacion de cada uno de los PanelTest
              */
-            if (!panelTest.getModelo().isEmpty() && !String.valueOf(panelTest.getPrecio()).isEmpty()) {
-                modelo.setIdModelo(Integer.toString(admInventario.obtenListaModelos().size()));
-                modelo.setNombre(panelTest.getModelo());
-                modelo.setPrecio(panelTest.getPrecio());
+            for (int i = 0; i < listaPanelTest.size(); i++) {
+                PanelModelo panelTest = listaPanelTest.get(i);
+                Modelo modelo = new Modelo();
+                Talla talla = new Talla();
 
                 /**
-                 * De los PanelTalla que hay dentro de los PanelTest obtenemos
-                 * la informacion de las tallas y las cantidades que hay de cada
-                 * talla.
+                 * Esto sirve para verificar que los campos no esten vacios. En dado
+                 * caso de que si esten, no se conectara a la base de datos hasta
+                 * que se encuentre un modelo que si tenga los datos completos.
                  */
-                List<String> listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
-                List<String> listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
+                if (!panelTest.getModelo().isEmpty() && !String.valueOf(panelTest.getPrecio()).isEmpty()) {
+                    modelo.setIdModelo(Integer.toString(admInventario.obtenListaModelos().size()));
+                    modelo.setNombre(panelTest.getModelo());
+                    modelo.setPrecio(panelTest.getPrecio());
 
-                /**
-                 * Igual aqui tenemos que checar que las cantidades de talla y
-                 * producto no esten vacios.
-                 */
-                if (listaCantidades.size() != 0 && listaTallas.size() != 0) {
                     /**
-                     * Con este for sacamos los datos de las listas y los
-                     * metemos a un objeto de tipo Talla. El cual despues pasara
-                     * a ser agregado a la Base de datos.
+                     * De los PanelTalla que hay dentro de los PanelTest obtenemos
+                     * la informacion de las tallas y las cantidades que hay de cada
+                     * talla.
                      */
-                    for (int j = 0; j < listaCantidades.size(); j++) {
-                        if (!String.valueOf(listaCantidades.get(j)).isEmpty()) {
-                            talla.setIdModelo(modelo);
-                            talla.setIdTalla(Integer.toString(admInventario.obtenListaTallas().size()));
-                            talla.setTalla(listaTallas.get(j));
-                            talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
-                            talla.setInventarioApartado(0);
-                            talla.setNoCodigoDeBarras(talla.getIdTalla());
+                    List<String> listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
+                    List<String> listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
+                    
+                    List<Talla> tallasAgregar = new ArrayList();
+                    /**
+                     * Igual aqui tenemos que checar que las cantidades de talla y
+                     * producto no esten vacios.
+                     */
+                    if (listaCantidades.size() != 0 && listaTallas.size() != 0) {
+                        /**
+                         * Con este for sacamos los datos de las listas y los
+                         * metemos a un objeto de tipo Talla. El cual despues pasara
+                         * a ser agregado a la Base de datos.
+                         */
+                        for (int j = 0; j < listaCantidades.size(); j++) {
+                            if (!String.valueOf(listaCantidades.get(j)).isEmpty()) {
+                                talla.setIdModelo(modelo);
+                                talla.setIdTalla(Integer.toString(admInventario.obtenListaTallas().size()));
+                                talla.setTalla(listaTallas.get(j));
+                                talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
+                                talla.setInventarioApartado(0);
+                                talla.setNoCodigoDeBarras(talla.getIdTalla());
 
-                            //Se agrega al inventario la talla.
-                            admInventario.agregarProductoAInventario(talla);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "La cantidad no puede estar vacia");
+                                //Aun no sabemos si los datos son validos.
+                                //A lo ultimo agregarmos todas las tallas creadas al inventario.
+                                tallasAgregar.add(talla);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "La cantidad no puede estar vacia");
+                                return false;
+                            }
                         }
+                        
+                        //Ahora si los agregamos a la base de datos.
+                        for(Talla t : tallasAgregar)
+                            admInventario.agregarProductoAInventario(t);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Indique la cantidad de talla y producto");
+                        return false;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Indique la cantidad de talla y producto");
+                    JOptionPane.showMessageDialog(null, "El nombre y precio del modelo no puede estar vacio.");
+                    return false;
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "El nombre y precio del modelo no puede estar vacio.");
             }
+            
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        
+        return false;
     }
 
     /**
