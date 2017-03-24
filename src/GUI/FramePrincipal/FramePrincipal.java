@@ -42,6 +42,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         menuItemAgregarProductoNuevo = new javax.swing.JMenuItem();
         menuItemAgregarProductoRegistrado = new javax.swing.JMenuItem();
+        menuItemBajaInventario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuItemAgregarApartado = new javax.swing.JMenuItem();
         menuItemModificarApartado = new javax.swing.JMenuItem();
@@ -81,6 +82,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         jMenu3.add(menuItemAgregarProductoRegistrado);
 
         jMenu1.add(jMenu3);
+
+        menuItemBajaInventario.setText("Baja de Inventario");
+        menuItemBajaInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemBajaInventarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemBajaInventario);
 
         jMenuBar1.add(jMenu1);
 
@@ -203,8 +212,20 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseEntered
 
     /**
+     * Este metodo entra en accion cuando el usuario selecciona la opcion baja a
+     * inventario. Este abre un FrameEscanearParaInventariar.
+     *
+     * @param evt
+     */
+    private void menuItemBajaInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBajaInventarioActionPerformed
+        FrameEscanearParaInventariar frameEscanearParaInventariar = new FrameEscanearParaInventariar(this, "Dar de baja");
+        frameEscanearParaInventariar.setVisible(true);
+    }//GEN-LAST:event_menuItemBajaInventarioActionPerformed
+
+    /**
      * Regresa el jPanel sobre el cual se ponen otros paneles.
-     * @return 
+     *
+     * @return
      */
     public JPanel getjPanel1() {
         return jPanel1;
@@ -229,6 +250,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAgregarApartado;
     private javax.swing.JMenuItem menuItemAgregarProductoNuevo;
     private javax.swing.JMenuItem menuItemAgregarProductoRegistrado;
+    private javax.swing.JMenuItem menuItemBajaInventario;
     private javax.swing.JMenuItem menuItemCancelarApartado;
     private javax.swing.JMenuItem menuItemModificarApartado;
     // End of variables declaration//GEN-END:variables

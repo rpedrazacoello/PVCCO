@@ -19,12 +19,33 @@ import objetosNegocio.Modelo;
 public class FrameEscanearParaInventariar extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrameEscanearParaInventariar
+     * Creates new form FrameEscanearParaInventariar. Este constructor se usa
+     * cuando se van a escanear codigos de barras para agregar mas productos al
+     * inventario.
+     *
+     * @param frame
      */
     public FrameEscanearParaInventariar(FramePrincipal frame) {
         initComponents();
         this.framePrincipal = frame;
         setLocationRelativeTo(null);
+    }
+
+    /**
+     * Este constructor se usa cuando se va a escanear UN (solo un) codigo de
+     * barras, esto para dar de baja productos de el inventario.
+     *
+     * @param frame
+     * @param baja
+     */
+    public FrameEscanearParaInventariar(FramePrincipal frame, String baja) {
+        initComponents();
+        this.framePrincipal = frame;
+        setLocationRelativeTo(null);
+        this.labelOpcion.setText("Escanea el codigo de barras del zapato a dar de baja.");
+        revalidate();
+        repaint();
+        this.opcion = baja;
     }
 
     /**
@@ -36,7 +57,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelOpcion = new javax.swing.JLabel();
         textFieldBuscar = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -49,8 +70,8 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Escanea el codigo de barras del zapato a agregar.");
+        labelOpcion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelOpcion.setText("Escanea el codigo de barras del zapato a agregar.");
 
         botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
         botonBuscar.setText("Buscar");
@@ -89,7 +110,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelOpcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -116,7 +137,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -154,31 +175,55 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
             panel.revalidate();
             panel.repaint();
         }
+
+        if (opcion != null) {
+            botonBuscar.setEnabled(false);
+        }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando se seleccicna la opcion Cancelar.
+     *
+     * @param evt
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Este metodo entra en accion cuando se selecciona la opcion Continuar
+     *
+     * @param evt
+     */
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
-        this.setVisible(false);
-        PanelInventariar panelInventariar = new PanelInventariar(listaModelos);
-        this.framePrincipal.getjPanel1().removeAll();
-        this.framePrincipal.getjPanel1().add(panelInventariar);
-        this.framePrincipal.getjPanel1().updateUI();
+//Si se van a agregar al inventario
+        if (this.opcion == null) {
+            this.setVisible(false);
+            PanelInventariar panelInventariar = new PanelInventariar(listaModelos);
+            this.framePrincipal.getjPanel1().removeAll();
+            this.framePrincipal.getjPanel1().add(panelInventariar);
+            this.framePrincipal.getjPanel1().updateUI();
+//Si se va a dar de baja del inventario
+        } else {
+            PanelBajaInventario2 panelBaja = new PanelBajaInventario2(listaModelos);
+            this.framePrincipal.getjPanel1().removeAll();
+            this.framePrincipal.getjPanel1().add(panelBaja);
+            this.framePrincipal.getjPanel1().updateUI();
+        }
     }//GEN-LAST:event_botonContinuarActionPerformed
 
-    FramePrincipal framePrincipal;
+    private String opcion;
+    private FramePrincipal framePrincipal;
     private List<Modelo> listaModelos = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonContinuar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelOpcion;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField textFieldBuscar;
     // End of variables declaration//GEN-END:variables

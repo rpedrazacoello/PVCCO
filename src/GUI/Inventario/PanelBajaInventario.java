@@ -5,6 +5,13 @@
  */
 package GUI.Inventario;
 
+
+import java.awt.TextField;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JLabel;
+import objetosNegocio.Talla;
+
 /**
  *
  * @author Roberto Pedraza
@@ -40,61 +47,30 @@ public class PanelBajaInventario extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout panelTallasLayout = new javax.swing.GroupLayout(panelTallas);
-        panelTallas.setLayout(panelTallasLayout);
-        panelTallasLayout.setHorizontalGroup(
-            panelTallasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelTallasLayout.setVerticalGroup(
-            panelTallasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
-        );
+        panelTallas.setLayout(new java.awt.GridLayout(0, 1));
 
-        javax.swing.GroupLayout panelCantidadInventarioLayout = new javax.swing.GroupLayout(panelCantidadInventario);
-        panelCantidadInventario.setLayout(panelCantidadInventarioLayout);
-        panelCantidadInventarioLayout.setHorizontalGroup(
-            panelCantidadInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelCantidadInventarioLayout.setVerticalGroup(
-            panelCantidadInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelCantidadInventario.setLayout(new java.awt.GridLayout(0, 1));
 
-        javax.swing.GroupLayout panelCantidadBajaLayout = new javax.swing.GroupLayout(panelCantidadBaja);
-        panelCantidadBaja.setLayout(panelCantidadBajaLayout);
-        panelCantidadBajaLayout.setHorizontalGroup(
-            panelCantidadBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelCantidadBajaLayout.setVerticalGroup(
-            panelCantidadBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelCantidadBaja.setLayout(new java.awt.GridLayout(0, 1));
 
         javax.swing.GroupLayout panelGeneralLayout = new javax.swing.GroupLayout(panelGeneral);
         panelGeneral.setLayout(panelGeneralLayout);
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(panelTallas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(panelCantidadInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(panelCantidadBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(21, 21, 21)
+                .addComponent(panelTallas, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(panelCantidadInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(panelCantidadBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTallas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCantidadInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCantidadBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(panelCantidadInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+            .addComponent(panelCantidadBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTallas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(panelGeneral);
@@ -119,21 +95,21 @@ public class PanelBajaInventario extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabel1)
                 .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4))
                 .addGap(58, 58, 58))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +130,8 @@ public class PanelBajaInventario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
+    private List<String> listaBajas = new ArrayList<>();
+    private List<TextField> listaTextField = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -166,4 +144,28 @@ public class PanelBajaInventario extends javax.swing.JPanel {
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelTallas;
     // End of variables declaration//GEN-END:variables
+
+    public void configurarPaneles(List<Talla> tallas) {
+        for (int i = 0; i < tallas.size(); i++) {
+            JLabel tallasLabel = new JLabel();
+            JLabel cantidadInventario = new JLabel();
+            TextField cantidadBajas = new TextField();
+            cantidadBajas.setText("0");
+            
+            tallasLabel.setText(tallas.get(i).getTalla());
+            cantidadInventario.setText(Integer.toString(tallas.get(i).getInventarioRegular()));
+            listaTextField.add(cantidadBajas);
+            
+            panelTallas.add(tallasLabel);
+            panelCantidadInventario.add(cantidadInventario);
+            panelCantidadBaja.add(cantidadBajas);
+        }
+    }
+    
+    public List<String> getBajas(){
+        for (int i = 0; i < listaTextField.size(); i++) {
+            listaBajas.add(listaTextField.get(i).getText());
+        }
+        return listaBajas;
+    }
 }

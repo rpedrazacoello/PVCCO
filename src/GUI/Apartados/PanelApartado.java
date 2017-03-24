@@ -327,7 +327,6 @@ public class PanelApartado extends javax.swing.JPanel {
             }
         });
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Flecha.png"))); // NOI18N
         jLabel13.setText("Modificable");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
