@@ -80,6 +80,7 @@ public class PanelApartado extends javax.swing.JPanel {
         //Vamos a poner esto en un map para poder recogerlo alrato.
         //Abajo estan los numeros relacionados con la talla.
         String[] datosNumericos = new String[]{String.valueOf(precio), String.valueOf(cantidad)};
+        
         //Y la talla en si.
         tallas.put(talla, datosNumericos);
         
@@ -102,6 +103,11 @@ public class PanelApartado extends javax.swing.JPanel {
 
                     //Multiplicamos cantidad * precio y se lo seteamos al total, en columna 4
                     tablaDatos.getModel().setValueAt(cantidad * precio, tme.getFirstRow(), 4);
+                    
+                    Talla talla = (Talla) tallas.keySet().toArray()[tme.getFirstRow()];
+                    String[] datosNumericos = new String[]{String.valueOf(precio), String.valueOf(cantidad)};
+                    tallas.put(talla, datosNumericos);
+                    
                     //Calculamos el precio total de toda la tabla
                     calcularPrecioTotal();
                 }

@@ -127,7 +127,7 @@ public class ControlGui {
 
                 float precio = Float.parseFloat(detalles[0]);
                 int cantidad = Integer.parseInt(detalles[1]);
-
+                System.out.println(cantidad);
                 TallaApartado tallaApartada = new TallaApartado();
                 tallaApartada.setIdApartado(apartado);
                 tallaApartada.setIdTalla(t);
