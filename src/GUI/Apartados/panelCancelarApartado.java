@@ -5,6 +5,11 @@
  */
 package GUI.Apartados;
 
+import negocios.admApartados.FacAdmApartados;
+import objetosNegocio.Apartado;
+import objetosNegocio.MovimientoEnApartado;
+import pvcco.interfaces.IntAdmApartados;
+
 /**
  *
  * @author Roberto Pedraza
@@ -17,10 +22,40 @@ public class panelCancelarApartado extends javax.swing.JPanel {
     /**
      * Creates new form panelCancelarApartado
      */
-    public panelCancelarApartado() {
+    public panelCancelarApartado(Apartado apartado) {
         initComponents();
+        
+        inicializarDatos(apartado);
     }
 
+    /**
+     * Inicializa los datos del panel con los del apartado.
+     * @param apartado 
+     */
+    private void inicializarDatos(Apartado apartado){
+        try{
+            //Vamos a obtener cuanto se ha abonado a este apartado..
+            IntAdmApartados adm = new FacAdmApartados();
+
+            float total = 0;
+
+            for(MovimientoEnApartado mov : adm.obtenAbonosRegistrados())
+                if(mov.getIdApartado().getIdApartado().equalsIgnoreCase(apartado.getIdApartado()))
+                    total+= mov.getCantidadAbonada();         
+
+            checkBoxApartado.setText("No. " + apartado.getIdApartado());
+            fechaApartado.setText(apartado.getFechaFin().toString());
+            cantidadAbonadaApartado.setText("$" + String.valueOf(total) + " MXN");
+            precioTotalApartado.setText("$" + apartado.getPrecioTotal() + " MXN");
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
+    
+    public void togglePanel(boolean value){
+        checkBoxApartado.setSelected(value);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

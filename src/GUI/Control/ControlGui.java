@@ -134,7 +134,7 @@ public class ControlGui {
                 tallaApartada.setPrecio(precio);
                 tallasApartadas.add(tallaApartada);
 
-                for (int i = 1; i < cantidad; i++) {
+                for (int i = 0; i < cantidad; i++) {
                     tallasApartadas.add(tallaApartada);
                 }
             }
@@ -156,13 +156,21 @@ public class ControlGui {
         return false;
     }
 
-    /**
+        /**
      * Abona hacia un apartado.
-     *
+     * 
      * @param apartado
-     * @return
+     * @return 
      */
-    public boolean abonarApartado(Apartado apartado) {
+    public boolean abonarApartado(Apartado apartado, float cantidadAbonada){
+        try{
+            IntAdmApartados adm = new FacAdmApartados();
+            
+            adm.abonarApartado(apartado, cantidadAbonada);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
         return false;
     }
 

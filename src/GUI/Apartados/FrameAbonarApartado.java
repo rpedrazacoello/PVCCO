@@ -5,9 +5,11 @@
  */
 package GUI.Apartados;
 
+import GUI.Control.ControlGui;
 import javax.swing.JOptionPane;
 import negocios.admApartados.FacAdmApartados;
 import objetosNegocio.Apartado;
+import objetosNegocio.MovimientoEnApartado;
 import pvcco.interfaces.IntAdmApartados;
 
 /**
@@ -21,6 +23,8 @@ import pvcco.interfaces.IntAdmApartados;
  */
 public class FrameAbonarApartado extends javax.swing.JFrame {
 
+    private Apartado apartado;
+    
     /**
      * Creates new form FrameAbonarApartado
      */
@@ -30,8 +34,27 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
     }
 
     private void habilitarCampos(Apartado apartado){
-        //Vamos a obtener cuanto se ha abonado a este apartado..
-        IntAdmApartados adm = new FacAdmApartados();
+        try{
+            //Vamos a obtener cuanto se ha abonado a este apartado..
+            IntAdmApartados adm = new FacAdmApartados();
+
+            float total = 0;
+
+            for(MovimientoEnApartado mov : adm.obtenAbonosRegistrados())
+                if(mov.getIdApartado().getIdApartado().equalsIgnoreCase(apartado.getIdApartado()))
+                    total+= mov.getCantidadAbonada(); 
+        
+            labelCantidadAbonada.setText(String.valueOf(total));
+            labelCantidadPorPagar.setText(String.valueOf(apartado.getPrecioTotal() - total));
+            labelCantidadTotalApartado.setText(String.valueOf(apartado.getPrecioTotal()));
+            labelFechaVencimiento.setText(apartado.getFechaFin().toString());
+            
+            textFieldCantidadAbonar.setEnabled(true);
+            textFieldPagoCon.setEnabled(true);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Se produjo un error obteniendo los abonos registrados. " + e.getMessage());
+        }
     }
     
     /**
@@ -68,6 +91,8 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
         botonCancelar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         botonBuscar = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        labelCantidadTotalApartado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -106,9 +131,14 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Se regresa:");
 
-        textFieldFeria.setEnabled(false);
+        textFieldFeria.setEditable(false);
 
         botonAbonar.setText("Abonar");
+        botonAbonar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAbonarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Abonar Apartado");
 
@@ -131,6 +161,12 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
                 botonBuscarActionPerformed(evt);
             }
         });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Total del Apartado:");
+
+        labelCantidadTotalApartado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelCantidadTotalApartado.setText("..");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,10 +203,13 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(labelFechaVencimiento))
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldNumeroApartado, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(botonBuscar))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(16, 16, 16)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -178,17 +217,20 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
                                             .addComponent(jLabel4))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labelCantidadAbonada)
-                                            .addComponent(labelCantidadPorPagar)))
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldNumeroApartado, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botonBuscar)))
+                                            .addComponent(labelCantidadPorPagar)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(labelCantidadAbonada)
+                                                .addGap(60, 60, 60)
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(labelCantidadTotalApartado)))))
                                 .addGap(0, 24, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelFechaVencimiento)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,18 +254,20 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(labelCantidadAbonada))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(labelCantidadAbonada)
+                    .addComponent(jLabel12)
+                    .addComponent(labelCantidadTotalApartado))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(labelCantidadPorPagar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(labelFechaVencimiento))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelFechaVencimiento)
+                    .addComponent(jLabel6))
+                .addGap(33, 33, 33)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,10 +304,20 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
 
                 for(Apartado apartado : adm.obtenApartadosRegistrados()){
                     if(apartado.getIdApartado().equalsIgnoreCase(textFieldNumeroApartado.getText())){
+                        if(apartado.getEstado() == 'I'){
+                            JOptionPane.showMessageDialog(null, "Este apartado ya esta liquidado o fue cancelado.");
+                            return;
+                        }
+                            
+                        this.apartado = apartado;
                         habilitarCampos(apartado);
+                        
                         break;
                     }
                 }
+                
+                if(apartado == null)
+                    JOptionPane.showMessageDialog(null, "No se encontro el apartado con el numero: " + textFieldNumeroApartado.getText());
             }catch(Exception e){
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Se produjo un error obteniendo el apartado. " + e.getMessage());
@@ -273,6 +327,25 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe introducir el numero de apartado para buscar.");
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    private void botonAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbonarActionPerformed
+        if(textFieldCantidadAbonar.getText().isEmpty() || textFieldPagoCon.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que uno de los campos no este vacio.");
+            return;
+        }
+        
+        //Calculamos la feria
+        float pago = Float.valueOf(textFieldPagoCon.getText());
+        float abono = Float.valueOf(textFieldCantidadAbonar.getText());
+        
+        //Se realiza el abono.
+        ControlGui gui = new ControlGui();
+        gui.abonarApartado(apartado, abono);
+        
+        //Se muestra mensaje de realizacion.
+        JOptionPane.showMessageDialog(null, "Se ha realizado el abono.\n" +
+                                            "Regrese $" + (pago - abono) + " MXN al cliente.");
+    }//GEN-LAST:event_botonAbonarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAbonar;
@@ -281,6 +354,7 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -295,6 +369,7 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel labelCantidadAbonada;
     private javax.swing.JLabel labelCantidadPorPagar;
+    private javax.swing.JLabel labelCantidadTotalApartado;
     private javax.swing.JLabel labelFechaVencimiento;
     private javax.swing.JTextField textFieldCantidadAbonar;
     private javax.swing.JTextField textFieldFeria;
