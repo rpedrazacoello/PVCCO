@@ -1,13 +1,16 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template in the editor.d
  */
 package GUI.Control;
 
+import GUI.Apartados.PanelApartado;
 import GUI.Inventario.PanelInventariar;
 import GUI.Inventario.PanelModelo;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import negocios.admApartados.FacAdmApartados;
 import negocios.admInventario.FacAdmInventario;
@@ -95,8 +98,73 @@ public class ControlGui {
         }
     }
 
-    public void AgregarApartado(Apartado apartado) throws Exception{
-        IntAdmApartados apartados = new FacAdmApartados();
+    /**
+     * Realiza un apartado dentro de la base de datos.
+     * 
+     * @param panel
+     * @return 
+     */
+    public boolean realizarApartado(PanelApartado panel){
+        try{
+            //Creamos la instancia del subsistema.
+            IntAdmApartados apartados = new FacAdmApartados();
+
+            //Creamos la base del apartado y lo llenamos de datos basicos.
+            Apartado apartado = new Apartado();
+            
+            apartado.setEstado('A');
+            apartado.setIdUsuario(new Usuario("0"));
+            apartado.setFechaInicio(panel.getFechaInicio());
+            apartado.setFechaFin(panel.getFechaVencimiento());
+            apartado.setIdApartado(String.valueOf(apartados.obtenApartadosRegistrados().size()));
+            
+            //Creamos objetos que usaremos despues.
+            Map<Talla, String[]> tallas = panel.getDetallesTabla();
+            List<TallaApartado> tallasApartadas = new ArrayList();
+
+            //Para cada talla del apartado, vamos a añadirla a una coleccion
+            //el cual se le dara al apartado.
+            for(Talla t : tallas.keySet()){
+                String[] detalles = tallas.get(t);
+
+                float precio = Float.parseFloat(detalles[0]);
+                int cantidad = Integer.parseInt(detalles[1]);
+
+                TallaApartado tallaApartada = new TallaApartado();
+                tallaApartada.setIdApartado(apartado);
+                tallaApartada.setIdTalla(t);
+                tallaApartada.setPrecio(precio);
+                tallasApartadas.add(tallaApartada);
+
+                for(int i = 1; i < cantidad; i++)
+                    tallasApartadas.add(tallaApartada);
+            }
+
+            apartado.setTallaApartadoCollection(tallasApartadas);
+            apartado.setNombreCliente(panel.getNombreCliente());
+            apartado.setTelefono(panel.getTelefonoCliente());
+            apartado.setPrecioTotal(panel.getTotal());
+            
+            //Se agrega a la base de datos.
+            apartados.realizarApartado(apartado);
+            
+            //Retorna como verdadero.
+            return true;
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al realizar un apartado. " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    /**
+     * Abona hacia un apartado.
+     * 
+     * @param apartado
+     * @return 
+     */
+    public boolean abonarApartado(Apartado apartado){
+        return false;
     }
     
     /**
@@ -124,4 +192,14 @@ public class ControlGui {
         return null;
     }
 
+    /**
+     * Regresa la lista de tallas en la base de datos.
+     * 
+     * @return 
+     */
+    public List<Talla> obtenTallas() throws Exception{
+        IntAdmInventario inv = new FacAdmInventario();
+        
+        return inv.obtenListaTallas();
+    }
 }
