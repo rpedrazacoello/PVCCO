@@ -8,7 +8,7 @@ package GUI.Inventario;
 import GUI.Control.ControlGui;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BoxLayout;
+import objetosNegocio.Modelo;
 
 /**
  *
@@ -21,12 +21,37 @@ public class PanelInventariar extends javax.swing.JPanel {
 
     /**
      * Creates new form panelInventariar
+     *
+     * Este metodo constructor se van a inventariar modelos que no se encuentran
+     * registrados.
      */
     public PanelInventariar() {
         initComponents();
         listaPanelTest.add(new PanelModelo());
         jPanel1.add(listaPanelTest.get(0));
 
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Este metodo constructor entra en uso cuando se van a inventariar modelos
+     * que ya estan registrados. Este recibe la lista de modelos a inventariar y
+     * organiza el panel para que la informacion necesaria se encuentre ahi.
+     *
+     * @param modelos
+     */
+    public PanelInventariar(List<Modelo> modelos) {
+        initComponents();
+        for (int i = 0; i < modelos.size(); i++) {
+            listaPanelTest.add(new PanelModelo());
+            listaPanelTest.get(i).setTextFieldModelo(modelos.get(i).getNombre());
+            listaPanelTest.get(i).setTextFieldPrecio(Float.toString(modelos.get(i).getPrecio()));
+            listaPanelTest.get(i).getTextFieldModelo().setEnabled(false);
+            listaPanelTest.get(i).getTextFieldPrecio().setEnabled(false);
+            jPanel1.add(listaPanelTest.get(i));
+            botonAgregarColumna.setVisible(false);
+        }
         revalidate();
         repaint();
     }

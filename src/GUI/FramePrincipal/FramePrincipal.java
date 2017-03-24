@@ -11,6 +11,7 @@ import GUI.Apartados.PanelApartado;
 import GUI.Inventario.FrameEscanearParaInventariar;
 import GUI.Inventario.PanelInventariar;
 import java.awt.Component;
+import javax.swing.JPanel;
 
 /**
  *
@@ -154,7 +155,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      * @param evt
      */
     private void menuItemAgregarProductoRegistradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAgregarProductoRegistradoActionPerformed
-        FrameEscanearParaInventariar frameEscanearParaInventariar = new FrameEscanearParaInventariar();
+        FrameEscanearParaInventariar frameEscanearParaInventariar = new FrameEscanearParaInventariar(this);
         frameEscanearParaInventariar.setVisible(true);
     }//GEN-LAST:event_menuItemAgregarProductoRegistradoActionPerformed
 
@@ -200,9 +201,15 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
         requestFocus();
     }//GEN-LAST:event_jPanel1MouseEntered
-    
-    
-    
+
+    /**
+     * Regresa el jPanel sobre el cual se ponen otros paneles.
+     * @return 
+     */
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
     /**
      * ATRIBUTOS DE LA CLASE
      *
@@ -210,6 +217,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      *
      *
      */
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

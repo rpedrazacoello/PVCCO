@@ -6,6 +6,7 @@
 package GUI.Inventario;
 
 import GUI.Control.ControlGui;
+import GUI.FramePrincipal.FramePrincipal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -20,8 +21,9 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
     /**
      * Creates new form FrameEscanearParaInventariar
      */
-    public FrameEscanearParaInventariar() {
+    public FrameEscanearParaInventariar(FramePrincipal frame) {
         initComponents();
+        this.framePrincipal = frame;
         setLocationRelativeTo(null);
     }
 
@@ -65,6 +67,11 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(panel);
 
         botonContinuar.setText("Continuar");
+        botonContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonContinuarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Agregar Modelo Existente");
 
@@ -119,7 +126,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -140,9 +147,8 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         ControlGui control = new ControlGui();
         Modelo modelo = control.obtenModelo(textFieldBuscar.getText());
-        listaModelos.add(modelo);
-
-        if (modelo != null) {
+        if ((!listaModelos.contains(modelo)) && modelo != null) {
+            listaModelos.add(modelo);
             JLabel label = new JLabel(modelo.getNombre());
             panel.add(label);
             panel.revalidate();
@@ -154,6 +160,15 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonContinuarActionPerformed
+        this.setVisible(false);
+        PanelInventariar panelInventariar = new PanelInventariar(listaModelos);
+        this.framePrincipal.getjPanel1().removeAll();
+        this.framePrincipal.getjPanel1().add(panelInventariar);
+        this.framePrincipal.getjPanel1().updateUI();
+    }//GEN-LAST:event_botonContinuarActionPerformed
+
+    FramePrincipal framePrincipal;
     private List<Modelo> listaModelos = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;

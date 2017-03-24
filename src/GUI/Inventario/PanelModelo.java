@@ -5,6 +5,8 @@
  */
 package GUI.Inventario;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author ZmSky
@@ -52,6 +54,32 @@ public class PanelModelo extends javax.swing.JPanel {
     public float getPrecio() {
         return new Float(textFieldPrecio.getText());
     }
+
+    /**
+     * Ingresa el texto del parametro al textFieldModelo
+     * @param modelo 
+     */
+    public void setTextFieldModelo(String modelo) {
+        this.textFieldModelo.setText(modelo);
+    }
+
+    /**
+     * Ingresa el texto del parametro al textFieldPrecio
+     * @param precio 
+     */
+    public void setTextFieldPrecio(String precio) {
+        this.textFieldPrecio.setText(precio);
+    }
+
+    public JTextField getTextFieldModelo() {
+        return textFieldModelo;
+    }
+
+    public JTextField getTextFieldPrecio() {
+        return textFieldPrecio;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
