@@ -147,6 +147,9 @@ public class ControlGui {
             //Se agrega a la base de datos.
             apartados.realizarApartado(apartado);
 
+            //Abonamos inicial.
+            abonarApartado(apartado, Float.parseFloat(panel.getCantidadAbonada()));
+            
             //Retorna como verdadero.
             return true;
         } catch (Exception e) {
