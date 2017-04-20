@@ -19,11 +19,15 @@ import pvcco.interfaces.IntAdmApartados;
  */
 public class panelCancelarApartado extends javax.swing.JPanel {
 
+    private Apartado apartado;
+    
     /**
      * Creates new form panelCancelarApartado
      */
     public panelCancelarApartado(Apartado apartado) {
         initComponents();
+        
+        this.apartado = apartado;
         
         inicializarDatos(apartado);
     }
@@ -50,6 +54,14 @@ public class panelCancelarApartado extends javax.swing.JPanel {
         }catch(Exception e){
              e.printStackTrace();
         }
+    }
+    
+    public Apartado getApartado(){
+        return apartado;
+    }
+    
+    public boolean estaActivo(){
+        return checkBoxApartado.isSelected();
     }
     
     public void togglePanel(boolean value){

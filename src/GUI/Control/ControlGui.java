@@ -176,7 +176,22 @@ public class ControlGui {
         return false;
     }
 
-        /**
+    public boolean cancelarApartado(Apartado apartado){
+        try{
+            IntAdmApartados adm = new FacAdmApartados();
+            adm.cancelarApartado(apartado);
+            
+            return true;
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Ocurrio un error." + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+            
+    
+     /**
      * Abona hacia un apartado.
      * 
      * @param apartado

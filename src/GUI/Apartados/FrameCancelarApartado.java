@@ -5,6 +5,7 @@
  */
 package GUI.Apartados;
 
+import GUI.Control.ControlGui;
 import java.awt.Component;
 import java.util.Calendar;
 import java.util.Date;
@@ -177,7 +178,16 @@ public class FrameCancelarApartado extends javax.swing.JFrame {
 
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
         try{
+            ControlGui gui = new ControlGui();
             
+            for(Component c : panelDatos.getComponents()){
+                if(c instanceof panelCancelarApartado){
+                    panelCancelarApartado panel = (panelCancelarApartado) c;
+                    
+                    if(panel.estaActivo())
+                        gui.cancelarApartado(panel.getApartado());
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

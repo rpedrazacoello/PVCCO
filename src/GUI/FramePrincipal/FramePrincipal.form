@@ -55,11 +55,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAgregarApartadoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemModificarApartado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar Apartado"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAbonarApartado">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Abonar Apartado"/>

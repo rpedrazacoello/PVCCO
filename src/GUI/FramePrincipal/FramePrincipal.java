@@ -45,7 +45,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemBajaInventario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuItemAgregarApartado = new javax.swing.JMenuItem();
-        menuItemModificarApartado = new javax.swing.JMenuItem();
         menuItemAbonarApartado = new javax.swing.JMenuItem();
         menuItemCancelarApartado = new javax.swing.JMenuItem();
 
@@ -97,9 +96,6 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuItemAgregarApartado);
-
-        menuItemModificarApartado.setText("Modificar Apartado");
-        jMenu2.add(menuItemModificarApartado);
 
         menuItemAbonarApartado.setText("Abonar Apartado");
         menuItemAbonarApartado.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +239,5 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAgregarProductoRegistrado;
     private javax.swing.JMenuItem menuItemBajaInventario;
     private javax.swing.JMenuItem menuItemCancelarApartado;
-    private javax.swing.JMenuItem menuItemModificarApartado;
     // End of variables declaration//GEN-END:variables
 }
