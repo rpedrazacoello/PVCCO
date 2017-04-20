@@ -51,6 +51,12 @@ public class ControlGui {
                  * que se encuentre un modelo que si tenga los datos completos.
                  */
                 if (!panelTest.getModelo().isEmpty() && !String.valueOf(panelTest.getPrecio()).isEmpty()) {
+                    if(panelTest.getPrecio() <= 0){
+                        JOptionPane.showMessageDialog(null, "El precio para el modelo: " + panelTest.getModelo()+"\n"+
+                                                            "Es negativo, cheque bien los datos.");
+                        return false;
+                    }
+                    
                     modelo.setIdModelo(Integer.toString(admInventario.obtenListaModelos().size()));
                     modelo.setNombre(panelTest.getModelo());
                     modelo.setPrecio(panelTest.getPrecio());
@@ -76,16 +82,23 @@ public class ControlGui {
                          */
                         for (int j = 0; j < listaCantidades.size(); j++) {
                             if (!String.valueOf(listaCantidades.get(j)).isEmpty()) {
-                                talla.setIdModelo(modelo);
-                                talla.setIdTalla(Integer.toString(admInventario.obtenListaTallas().size()));
-                                talla.setTalla(listaTallas.get(j));
-                                talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
-                                talla.setInventarioApartado(0);
-                                talla.setNoCodigoDeBarras(talla.getIdTalla());
+                                if(Integer.parseInt(listaCantidades.get(j)) > 0){
+                                    talla.setIdModelo(modelo);
+                                    talla.setIdTalla(Integer.toString(admInventario.obtenListaTallas().size()));
+                                    talla.setTalla(listaTallas.get(j));
+                                    talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
+                                    talla.setInventarioApartado(0);
+                                    talla.setNoCodigoDeBarras(talla.getIdTalla());
 
-                                //Aun no sabemos si los datos son validos.
-                                //A lo ultimo agregarmos todas las tallas creadas al inventario.
-                                tallasAgregar.add(talla);
+                                    //Aun no sabemos si los datos son validos.
+                                    //A lo ultimo agregarmos todas las tallas creadas al inventario.
+                                    tallasAgregar.add(talla);
+                                }
+                                else if(Integer.parseInt(listaCantidades.get(j)) < 0){
+                                    JOptionPane.showMessageDialog(null, "Una de las cantidades es negativa.\n"+
+                                                                        "Modelo: " + modelo.getNombre() + "\n");
+                                    return false;
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "La cantidad no puede estar vacia");
                                 return false;
@@ -224,7 +237,7 @@ public class ControlGui {
         try {
             modelos = admInventario.obtenListaModelos();
             for (int i = 0; i < modelos.size(); i++) {
-                if (modelos.get(i).getNombre().equals(modelo)) {
+                if (modelos.get(i).getNombre().equalsIgnoreCase(modelo)) {
                     return modelos.get(i);
                 }
             }
@@ -234,6 +247,22 @@ public class ControlGui {
         return null;
     }
 
+    /**
+     * Regresa la lista de modelos.
+     * @return 
+     */
+    public List<Modelo> obtenModelos(){
+        try{
+            IntAdmInventario adm = new FacAdmInventario();
+            
+            return adm.obtenListaModelos();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    
     /**
      * Regresa la lista de tallas en la base de datos.
      *
@@ -265,18 +294,32 @@ public class ControlGui {
      * @param bajas
      * @param descripcion 
      */
-    public void actualizarInventario(List<Talla> tallas, List<String> bajas, String descripcion) {
+    public boolean actualizarInventario(List<Talla> tallas, List<String> bajas, String descripcion) {
         List<Integer> bajasInteger = new ArrayList<>();
         
+        try{
         for (int i = 0; i < bajas.size(); i++) {
+            int numero = Integer.parseInt(bajas.get(i));
+            
+            if(numero < 0){
+                JOptionPane.showMessageDialog(null, "No se pueden introducir numeros negativos.");
+                return false;
+            }
             bajasInteger.add(new Integer(bajas.get(i)));
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Solamente se admiten numeros en los campos numericos.");
         }
         
         try {
             IntAdmInventario inv = new FacAdmInventario();
             inv.bajaEnInventario(tallas, bajasInteger, descripcion);
+            
+            return true;
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
+        
+        return false;
     }
 }

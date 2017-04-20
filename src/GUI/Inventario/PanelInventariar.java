@@ -47,6 +47,7 @@ public class PanelInventariar extends javax.swing.JPanel {
      */
     public PanelInventariar(List<Modelo> modelos) {
         initComponents();
+        
         for (int i = 0; i < modelos.size(); i++) {
             listaPanelTest.add(new PanelModelo());
             listaPanelTest.get(i).setTextFieldModelo(modelos.get(i).getNombre());
@@ -72,7 +73,7 @@ public class PanelInventariar extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -87,7 +88,7 @@ public class PanelInventariar extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.GridLayout(0, 1));
         jScrollPane2.setViewportView(jPanel1);
 
-        jLabel1.setText("Agregar Nuevo Producto");
+        titulo.setText("Agregar Nuevo Producto");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Modelo");
@@ -135,7 +136,7 @@ public class PanelInventariar extends javax.swing.JPanel {
                         .addComponent(jScrollPane2)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                         .addGap(596, 596, 596))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -148,7 +149,7 @@ public class PanelInventariar extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,11 +230,11 @@ public class PanelInventariar extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregarColumna;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonSiguiente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,7 +40,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" pref="128" max="32767" attributes="0"/>
+                      <Component id="titulo" pref="128" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="596" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -58,7 +58,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="titulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="11" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="titulo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar Nuevo Producto"/>
       </Properties>

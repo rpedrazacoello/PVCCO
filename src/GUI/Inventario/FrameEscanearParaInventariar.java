@@ -9,6 +9,8 @@ import GUI.Control.ControlGui;
 import GUI.FramePrincipal.FramePrincipal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import objetosNegocio.Modelo;
 
@@ -29,8 +31,29 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         initComponents();
         this.framePrincipal = frame;
         setLocationRelativeTo(null);
+        
+        crearComboBoxModelos();
     }
 
+    /**
+     * Crea el combo box de modelos que estan en al base de datos.
+     */
+    private void crearComboBoxModelos(){
+        ControlGui gui = new ControlGui();
+        List<Modelo> modelos = gui.obtenModelos();
+        List<String> nombres = new ArrayList();
+        
+        for(Modelo modelo : modelos)
+            nombres.add(modelo.getNombre());
+        
+        ComboBoxModel model = new DefaultComboBoxModel(nombres.toArray());
+            
+        comboBoxBuscar.setModel(model);
+        comboBoxBuscar.setSelectedIndex(-1);
+        
+        AutoCompletion.enable(comboBoxBuscar);
+    }
+    
     /**
      * Este constructor se usa cuando se va a escanear UN (solo un) codigo de
      * barras, esto para dar de baja productos de el inventario.
@@ -43,9 +66,12 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         this.framePrincipal = frame;
         setLocationRelativeTo(null);
         this.labelOpcion.setText("Escanea el codigo de barras del zapato a dar de baja.");
+        jLabel4.setText("Dar modelo existente de baja");
         revalidate();
         repaint();
         this.opcion = baja;
+        
+        crearComboBoxModelos();
     }
 
     /**
@@ -58,7 +84,6 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
     private void initComponents() {
 
         labelOpcion = new javax.swing.JLabel();
-        textFieldBuscar = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,6 +92,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botonCancelar = new javax.swing.JButton();
+        comboBoxBuscar = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -120,7 +146,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
                                     .addComponent(botonCancelar))
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(textFieldBuscar)
+                                    .addComponent(comboBoxBuscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(botonBuscar)))
                             .addComponent(jLabel4)
@@ -141,9 +167,9 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -166,18 +192,17 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
      * @param evt
      */
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        ControlGui control = new ControlGui();
-        Modelo modelo = control.obtenModelo(textFieldBuscar.getText());
-        if ((!listaModelos.contains(modelo)) && modelo != null) {
-            listaModelos.add(modelo);
-            JLabel label = new JLabel(modelo.getNombre());
-            panel.add(label);
-            panel.revalidate();
-            panel.repaint();
-        }
+        if(comboBoxBuscar.getSelectedIndex() != -1 && !((String)comboBoxBuscar.getSelectedItem()).isEmpty()){
+            ControlGui control = new ControlGui();
+            Modelo modelo = control.obtenModelo((String) comboBoxBuscar.getSelectedItem());
 
-        if (opcion != null) {
-            botonBuscar.setEnabled(false);
+            if ((!listaModelos.contains(modelo)) && modelo != null) {
+                listaModelos.add(modelo);
+                JLabel label = new JLabel(modelo.getNombre());
+                panel.add(label);
+                panel.revalidate();
+                panel.repaint();
+            }
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
@@ -203,12 +228,16 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
             this.framePrincipal.getjPanel1().removeAll();
             this.framePrincipal.getjPanel1().add(panelInventariar);
             this.framePrincipal.getjPanel1().updateUI();
+            
+            dispose();
 //Si se va a dar de baja del inventario
         } else {
             PanelBajaInventario2 panelBaja = new PanelBajaInventario2(listaModelos);
             this.framePrincipal.getjPanel1().removeAll();
             this.framePrincipal.getjPanel1().add(panelBaja);
             this.framePrincipal.getjPanel1().updateUI();
+            
+            dispose();
         }
     }//GEN-LAST:event_botonContinuarActionPerformed
 
@@ -219,12 +248,12 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonContinuar;
+    private javax.swing.JComboBox<String> comboBoxBuscar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelOpcion;
     private javax.swing.JPanel panel;
-    private javax.swing.JTextField textFieldBuscar;
     // End of variables declaration//GEN-END:variables
 }

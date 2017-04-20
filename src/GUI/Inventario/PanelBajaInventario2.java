@@ -70,6 +70,11 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
         });
 
         botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,6 +134,11 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
         control.actualizarInventario(tallas, bajas, textAreaRazonBaja.getText());
         this.setVisible(false);
     }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        getParent().remove(this);
+        getParent().repaint();
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void configurarPanelBajaInventario(){
         ControlGui control = new ControlGui();
