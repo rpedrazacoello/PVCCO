@@ -301,7 +301,9 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
         if(!textFieldNumeroApartado.getText().isEmpty()){
             try{
                 IntAdmApartados adm = new FacAdmApartados();
-
+                
+                Apartado encontrado = null;
+                
                 for(Apartado apartado : adm.obtenApartadosRegistrados()){
                     if(apartado.getIdApartado().equalsIgnoreCase(textFieldNumeroApartado.getText())){
                         if(apartado.getEstado() == 'I'){
@@ -309,15 +311,27 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
                             return;
                         }
                             
-                        this.apartado = apartado;
-                        habilitarCampos(apartado);
+                        encontrado = apartado;
+                        habilitarCampos(encontrado);
                         
                         break;
                     }
                 }
                 
-                if(apartado == null)
+                if(encontrado == null){
                     JOptionPane.showMessageDialog(null, "No se encontro el apartado con el numero: " + textFieldNumeroApartado.getText());
+                    
+                    labelCantidadAbonada.setText("");
+                    labelCantidadPorPagar.setText("");
+                    labelCantidadTotalApartado.setText("");
+                    labelFechaVencimiento.setText("");
+
+                    textFieldCantidadAbonar.setEnabled(false);
+                    textFieldPagoCon.setEnabled(false);
+                    
+                    apartado = null;
+                }else
+                    apartado = encontrado;
             }catch(Exception e){
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Se produjo un error obteniendo el apartado. " + e.getMessage());
@@ -328,22 +342,31 @@ public class FrameAbonarApartado extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonAbonarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbonarActionPerformed
-        if(textFieldCantidadAbonar.getText().isEmpty() || textFieldPagoCon.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Verifique que uno de los campos no este vacio.");
-            return;
+        if(apartado != null){
+            if(textFieldCantidadAbonar.getText().isEmpty() || textFieldPagoCon.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Verifique que uno de los campos no este vacio.");
+                return;
+            }
+
+            //Calculamos la feria
+            float pago = Float.valueOf(textFieldPagoCon.getText());
+            float abono = Float.valueOf(textFieldCantidadAbonar.getText());
+
+            if(pago < abono){
+                JOptionPane.showMessageDialog(null, "La cantidad a pagar es menor que la cantidad a abonar.");
+                return;
+            }
+            
+            //Se realiza el abono.
+            ControlGui gui = new ControlGui();
+            gui.abonarApartado(apartado, abono);
+
+            //Se muestra mensaje de realizacion.
+            JOptionPane.showMessageDialog(null, "Se ha realizado el abono.\n" +
+                                                "Regrese $" + (pago - abono) + " MXN al cliente.");
         }
-        
-        //Calculamos la feria
-        float pago = Float.valueOf(textFieldPagoCon.getText());
-        float abono = Float.valueOf(textFieldCantidadAbonar.getText());
-        
-        //Se realiza el abono.
-        ControlGui gui = new ControlGui();
-        gui.abonarApartado(apartado, abono);
-        
-        //Se muestra mensaje de realizacion.
-        JOptionPane.showMessageDialog(null, "Se ha realizado el abono.\n" +
-                                            "Regrese $" + (pago - abono) + " MXN al cliente.");
+        else
+            JOptionPane.showMessageDialog(null, "No se ha indicado el apartado al cual abonar.");
     }//GEN-LAST:event_botonAbonarActionPerformed
 
 

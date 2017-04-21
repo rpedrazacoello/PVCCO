@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import objetosNegocio.Modelo;
 import objetosNegocio.Talla;
 
 /**
@@ -99,6 +100,26 @@ public class PanelApartado extends javax.swing.JPanel {
                     //Obtenemos el valor en cantidad, que se ubica en la columna 3
                     int cantidad = Integer.parseInt(String.valueOf(tablaDatos.getModel().getValueAt(tme.getFirstRow(), 3)));
 
+                    ControlGui control = new ControlGui();
+                    Modelo modelo = control.obtenModelo((String) tablaDatos.getModel().getValueAt(tme.getFirstRow(), 0));
+                    Talla tallaSeleccionada = null;
+                    
+                    for(Talla t : modelo.getTallaCollection()){
+                        if(t.getTalla().equals(String.valueOf(tablaDatos.getModel().getValueAt(tme.getFirstRow(), 1)))){
+                            tallaSeleccionada = t;
+                            break;
+                        }
+                    }
+                    
+                    if(tallaSeleccionada != null){
+                        int cantidadInventario = tallaSeleccionada.getInventarioRegular();
+                    
+                        if(cantidadInventario < cantidad){
+                            JOptionPane.showMessageDialog(null, "En el inventario regular solamente hay " + cantidadInventario + " zapatos de\n" +
+                                                                "esta talla. Indique un numero menor o igual a la cantidad del inventario.");   
+                            return;
+                        }
+                    }
                     /**
                      * Verifica que la cantidad sea mayor a 1, si no es asi le
                      * dice al usuario que la cantidad debe de ser mayor a uno y
@@ -109,6 +130,7 @@ public class PanelApartado extends javax.swing.JPanel {
                         tablaDatos.getModel().setValueAt(1, tme.getFirstRow(), 3);
                         return;
                     }
+                    
                     //Obtenemos el precio que se ubica en la columna 2
                     double precio = Double.parseDouble(String.valueOf(tablaDatos.getModel().getValueAt(tme.getFirstRow(), 2)));
 
@@ -578,13 +600,18 @@ public class PanelApartado extends javax.swing.JPanel {
             Talla talla = buscarModelo(codigoBarras.getText());
 
             if (talla != null) {
+                if (talla.getInventarioRegular() <= 0) {
+                    JOptionPane.showMessageDialog(null, "El modelo con el codigo de barras " + codigoBarras.getText() +" no cuenta con productos en el inventario.");
+                    
+                    return;
+                }
+                
                 agregarLineaTabla(talla);
                 codigoBarras.setText("");
-            } else if (talla.getInventarioRegular() <= 0) {
-                JOptionPane.showMessageDialog(null, "El modelo con el codigo de barras " + codigoBarras.getText() +" no cuenta con productos en el inventario.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontro el modelo con codigo: " + codigoBarras.getText());
             }
+            else 
+                JOptionPane.showMessageDialog(null, "No se encontro el modelo con codigo: " + codigoBarras.getText());
+                    
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "No se pudo realizar el apartado. " + e.getMessage());

@@ -145,20 +145,20 @@ public class PanelBajaInventario extends javax.swing.JPanel {
 
     public void configurarPaneles(List<Talla> tallas) {
         for (int i = 0; i < tallas.size(); i++) {
-//            if (tallas.get(i).getInventarioRegular() > 0) {
-            JLabel tallasLabel = new JLabel();
-            JLabel cantidadInventario = new JLabel();
-            TextField cantidadBajas = new TextField();
-            cantidadBajas.setText("0");
+            if(tallas.get(i).getInventarioRegular() > 0){
+                JLabel tallasLabel = new JLabel();
+                JLabel cantidadInventario = new JLabel();
+                TextField cantidadBajas = new TextField();
+                cantidadBajas.setText("0");
 
-            tallasLabel.setText(tallas.get(i).getTalla());
-            cantidadInventario.setText(Integer.toString(tallas.get(i).getInventarioRegular()));
-            listaTextField.add(cantidadBajas);
+                tallasLabel.setText(tallas.get(i).getTalla());
+                cantidadInventario.setText(Integer.toString(tallas.get(i).getInventarioRegular()));
+                listaTextField.add(cantidadBajas);
 
-            panelTallas.add(tallasLabel);
-            panelCantidadInventario.add(cantidadInventario);
-            panelCantidadBaja.add(cantidadBajas);
-//            }
+                panelTallas.add(tallasLabel);
+                panelCantidadInventario.add(cantidadInventario);
+                panelCantidadBaja.add(cantidadBajas);
+            }
         }
     }
 

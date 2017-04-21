@@ -6,6 +6,7 @@
 package GUI.Inventario;
 
 import GUI.Control.ControlGui;
+import java.util.ArrayList;
 import java.util.List;
 import objetosNegocio.*;
 
@@ -27,6 +28,7 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
      */
     public PanelBajaInventario2(List<Modelo> modelos) {
         initComponents();
+            
         this.modelos=modelos;
         configurarPanelBajaInventario();
     }
