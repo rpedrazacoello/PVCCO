@@ -47,7 +47,7 @@ public class PanelInventariar extends javax.swing.JPanel {
      */
     public PanelInventariar(List<Modelo> modelos) {
         initComponents();
-        
+
         for (int i = 0; i < modelos.size(); i++) {
             listaPanelTest.add(new PanelModelo());
             listaPanelTest.get(i).setTextFieldModelo(modelos.get(i).getNombre());
@@ -174,32 +174,115 @@ public class PanelInventariar extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarColumnaActionPerformed
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
+        // EMPIEZA VALIDACION DE LOS DATOS
+        String error = new String();
+        
+        /**
+         * Verifica que los datos del textFielModelo sean correctos
+         */
+        for (int i = 0; i < listaPanelTest.size(); i++) {
+            if (listaPanelTest.get(i).getTextFieldModelo().getText().isEmpty()) {
+                error += "\n El nombre de los modelos no puede estar vacio";
+                break;
+            } else if (listaPanelTest.get(i).getTextFieldModelo().getText().length() > 100) {
+                error += "\n El nombre de los modelos no puede ser mayor a 100 caracteres";
+                break;
+            }
+        }
+
+        /**
+         * Verifica que los datos del textFieldPrecio sean correctos
+         */
+        for (int i = 0; i < listaPanelTest.size(); i++) {
+            if (listaPanelTest.get(i).getTextFieldPrecio().getText().isEmpty()) {
+                error += "\n El precio no puede estar vacio";
+                break;
+            }
+            try {
+                float precio = Float.parseFloat(listaPanelTest.get(i).getTextFieldPrecio().getText());
+                if (precio <= 0) {
+                    error += "\n El precio tiene que ser mayor a 0";
+                    break;
+                }
+            } catch (Exception e) {
+                error += "\n El precio de los productos solo puedes contener numeros";
+                break;
+            }
+        }
+
+        /**
+         * Verifica que los datos de cantidades y tallas sean correctos
+         */
+        for (int i = 0; i < listaPanelTest.size(); i++) {
+            if (listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size() == 0) {
+                error += "\n Tienes que agregar minimo talla con su respectiva cantidad.";
+                break;
+            }
+            int cantidadPanelTalla = listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size();
+            for (int j = 0; j < cantidadPanelTalla; j++) {
+                try {
+                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j));
+                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j));
+
+                    if (Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j)) < 0
+                            || Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j)) < 0) {
+                        error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
+                        break;
+                    }
+                } catch (Exception e) {
+                    error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Si el string error no esta vacio, se imprimen los errores.
+         */
+        if (!error.isEmpty()) {
+            JOptionPane.showMessageDialog(null, error);
+            return;
+        }
+        //TERMINA VALIDACION DE LOS DATOS
+
         FrameValidarInventario validacion = new FrameValidarInventario(listaPanelTest);
         final PanelInventariar panel = this;
-        
+
         validacion.addWindowListener(new WindowListener() {
             @Override
-            public void windowClosing(WindowEvent we) {}
-            public void windowOpened(WindowEvent we) { }
+            public void windowClosing(WindowEvent we) {
+            }
+
+            public void windowOpened(WindowEvent we) {
+            }
+
             public void windowClosed(WindowEvent we) {
-                if(validacion.getAccion() != null && validacion.getAccion().equalsIgnoreCase("Terminar")){
+                if (validacion.getAccion() != null && validacion.getAccion().equalsIgnoreCase("Terminar")) {
                     ControlGui control = new ControlGui();
                     System.out.println("Agregando al inventario..");
-                    
-                    if(control.agregarAInventario(panel)){
+
+                    if (control.agregarAInventario(panel)) {
                         System.out.println("Realizado");
                         JOptionPane.showMessageDialog(null, "Se ha realizado el agregado al inventario.");
-                        
+
                         Container parent = panel.getParent();
                         parent.remove(panel);
                         parent.repaint();
                     }
                 }
             }
-            public void windowIconified(WindowEvent we) { }
-            public void windowDeiconified(WindowEvent we) { }
-            public void windowActivated(WindowEvent we) {}
-            public void windowDeactivated(WindowEvent we) {}
+
+            public void windowIconified(WindowEvent we) {
+            }
+
+            public void windowDeiconified(WindowEvent we) {
+            }
+
+            public void windowActivated(WindowEvent we) {
+            }
+
+            public void windowDeactivated(WindowEvent we) {
+            }
         });
     }//GEN-LAST:event_botonSiguienteActionPerformed
 

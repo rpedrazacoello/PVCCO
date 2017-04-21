@@ -131,7 +131,9 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         List<String> bajas = this.panelBajaInventario1.getBajas();
         ControlGui control = new ControlGui();
-        control.actualizarInventario(tallas, bajas, textAreaRazonBaja.getText());
+        if(!control.actualizarInventario(tallas, bajas, textAreaRazonBaja.getText())){
+            return;
+        }
         this.setVisible(false);
     }//GEN-LAST:event_botonAceptarActionPerformed
 

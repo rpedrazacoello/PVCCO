@@ -27,7 +27,7 @@ import objetosNegocio.Talla;
 public class PanelApartado extends javax.swing.JPanel {
 
     private Map<Talla, String[]> tallas;
-    
+
     /**
      * Creates new form PanelApartado
      */
@@ -35,7 +35,7 @@ public class PanelApartado extends javax.swing.JPanel {
         initComponents();
         agregarListener();
         verificarFechas();
-        
+
         tallas = new HashMap();
     }
 
@@ -43,178 +43,208 @@ public class PanelApartado extends javax.swing.JPanel {
      * Setea las label con las fechas de apartado y tiempo limite de apartado.
      */
     private void verificarFechas() {
-        String[] meses = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", 
-                                      "Junio", "Julio", "Augosto", "Septiembre", 
-                                      "Octubre", "Noviembre", "Diciembre"};
-        
+        String[] meses = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo",
+            "Junio", "Julio", "Augosto", "Septiembre",
+            "Octubre", "Noviembre", "Diciembre"};
+
         Calendar c = Calendar.getInstance();
         int dia = c.get(Calendar.DAY_OF_MONTH);
         String mes = meses[c.get(Calendar.MONTH)];
         int year = c.get(Calendar.YEAR);
-        
+
         c.add(Calendar.DATE, 30);
-        
+
         int diaLimite = c.get(Calendar.DAY_OF_MONTH);
         String mesLimite = meses[c.get(Calendar.MONTH)];
         int yearLimite = c.get(Calendar.YEAR);
-        
+
         labelFechaApartado.setText(dia + " de " + mes + " del " + year);
         labelFechaVencimiento.setText(diaLimite + " de " + mesLimite + " del " + yearLimite);
     }
-    
+
     /**
      * Agrega una nueva linea a la tabla de datos.
      */
-    private void agregarLineaTabla(Talla talla){
+    private void agregarLineaTabla(Talla talla) {
         DefaultTableModel model = (DefaultTableModel) tablaDatos.getModel();
-        
+
         String modelo = talla.getIdModelo().getNombre();
         String noTalla = talla.getTalla();
         String precio = String.valueOf(talla.getIdModelo().getPrecio());
         String cantidad = String.valueOf(1);
         String total = precio;
-        
+
         String[] linea = new String[]{modelo, noTalla, precio, cantidad, total};
         model.addRow(linea);
-        
+
         //Vamos a poner esto en un map para poder recogerlo alrato.
         //Abajo estan los numeros relacionados con la talla.
         String[] datosNumericos = new String[]{String.valueOf(precio), String.valueOf(cantidad)};
-        
+
         //Y la talla en si.
         tallas.put(talla, datosNumericos);
-        
+
         calcularPrecioTotal();
     }
-    
+
     /**
      * Se encarga de los eventos de la celda de cantidad.
      */
-    private void agregarListener(){
+    private void agregarListener() {
         tablaDatos.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent tme) {
                 //Si la columna 3, que es la cantidad fue la que se modifico..
-                if(tme.getColumn() == 3){
+                if (tme.getColumn() == 3) {
                     //Obtenemos el valor en cantidad, que se ubica en la columna 3
                     int cantidad = Integer.parseInt(String.valueOf(tablaDatos.getModel().getValueAt(tme.getFirstRow(), 3)));
+
+                    /**
+                     * Verifica que la cantidad sea mayor a 1, si no es asi le
+                     * dice al usuario que la cantidad debe de ser mayor a uno y
+                     * modifica a 1 la cantidad.
+                     */
+                    if (cantidad < 1) {
+                        JOptionPane.showMessageDialog(null, "La cantidad no puede ser menor que 1");
+                        tablaDatos.getModel().setValueAt(1, tme.getFirstRow(), 3);
+                        return;
+                    }
                     //Obtenemos el precio que se ubica en la columna 2
                     double precio = Double.parseDouble(String.valueOf(tablaDatos.getModel().getValueAt(tme.getFirstRow(), 2)));
 
                     //Multiplicamos cantidad * precio y se lo seteamos al total, en columna 4
                     tablaDatos.getModel().setValueAt(cantidad * precio, tme.getFirstRow(), 4);
-                    
+
                     Talla talla = (Talla) tallas.keySet().toArray()[tme.getFirstRow()];
                     String[] datosNumericos = new String[]{String.valueOf(precio), String.valueOf(cantidad)};
                     tallas.put(talla, datosNumericos);
-                    
+
                     //Calculamos el precio total de toda la tabla
                     calcularPrecioTotal();
                 }
             }
         });
     }
-    
+
     /**
-     * Busca una talla en la base de datos por medio de su codigo de barras, y la regresa.
-     * 
+     * Busca una talla en la base de datos por medio de su codigo de barras, y
+     * la regresa.
+     *
      * @param codigoBarras El codigo de barras de la talla.
      * @return La talla a regresarse.
      */
-    public Talla buscarModelo(String codigoBarras){
-        try{
+    public Talla buscarModelo(String codigoBarras) {
+        try {
             List<Talla> tallas = new ControlGui().obtenTallas();
-            
-            for(Talla talla : tallas)
-                if(talla.getNoCodigoDeBarras().equalsIgnoreCase(codigoBarras))
+
+            for (Talla talla : tallas) {
+                if (talla.getNoCodigoDeBarras().equalsIgnoreCase(codigoBarras)) {
                     return talla;
-        }catch(Exception e){
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     /**
      * Calcula el precio total de la tabla y ajusta los labels a como se ocupe.
      */
-    private void calcularPrecioTotal(){
+    private void calcularPrecioTotal() {
         float total = 0;
-        
-        for(int row = 0; row < tablaDatos.getRowCount(); row++)
-            total+= Float.parseFloat(String.valueOf(tablaDatos.getModel().getValueAt(row, 4)));
-        
+
+        for (int row = 0; row < tablaDatos.getRowCount(); row++) {
+            total += Float.parseFloat(String.valueOf(tablaDatos.getModel().getValueAt(row, 4)));
+        }
+
         labelPrecioTotal.setText(String.format("%.2f", total).replaceFirst(",", "."));
         labelMinimoAbonar.setText(String.format("%.2f", total * .3).replaceFirst(",", "."));
     }
-    
+
     /**
      * Regresa la feria.
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getFeria(){
+    public String getFeria() {
         float pagoCon = Float.parseFloat(getPagoCon());
         float cantidadAbonada = Float.parseFloat(getCantidadAbonada());
-        
+
         return String.valueOf(pagoCon - cantidadAbonada);
     }
-    
+
     /**
      * Regresa la minima cantidad de abono.
-     * 
-     * @return 
+     *
+     * @return
      */
-    public float getCantidadMinimoAbono(){
+    public float getCantidadMinimoAbono() {
         return Float.valueOf(labelMinimoAbonar.getText().replaceFirst(",", "."));
     }
-    
+
     /**
      * Regresa la fecha de inicio del apartado.
-     * @return 
+     *
+     * @return
      */
-    public Date getFechaInicio(){
+    public Date getFechaInicio() {
         Calendar c = Calendar.getInstance();
         return c.getTime();
     }
-    
+
     /**
      * Regresa la fecha de vencimiento del apartado.
-     * @return 
+     *
+     * @return
      */
-    public Date getFechaVencimiento(){
+    public Date getFechaVencimiento() {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 30);
-        
+
         return c.getTime();
     }
-    
+
     /**
      * Regresa el total del apartado.
-     * @return 
+     *
+     * @return
      */
-    public float getTotal(){
+    public float getTotal() {
         return Float.parseFloat(labelPrecioTotal.getText());
     }
-    
+
     /**
      * Regresa cada linea en la tabla mediante una lista de Strings.
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Map getDetallesTabla(){
+    public Map getDetallesTabla() {
         return tallas;
     }
-    
+
     /**
      * Todos los demas setters.
-     * @return 
+     *
+     * @return
      */
-    public String getNombreCliente(){ return textFieldCliente.getText(); }
-    public String getTelefonoCliente(){ return textFieldTelefono.getText(); }
-    public String getCantidadAbonada(){ return textFieldCantidarAbonada.getText(); }
-    public String getPagoCon(){ return textFieldPagoCon.getText(); }
-    
+    public String getNombreCliente() {
+        return textFieldCliente.getText();
+    }
+
+    public String getTelefonoCliente() {
+        return textFieldTelefono.getText();
+    }
+
+    public String getCantidadAbonada() {
+        return textFieldCantidarAbonada.getText();
+    }
+
+    public String getPagoCon() {
+        return textFieldPagoCon.getText();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -484,37 +514,57 @@ public class PanelApartado extends javax.swing.JPanel {
         /**
          * Vamos a checar si alguno de los campos estan vacios.
          */
-        if(getNombreCliente().isEmpty() || getTelefonoCliente().isEmpty() || getCantidadAbonada().isEmpty() || getPagoCon().isEmpty()){
+        if (getNombreCliente().isEmpty() || getTelefonoCliente().isEmpty() || getCantidadAbonada().isEmpty() || getPagoCon().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Uno de los campos esta vacio. Verifique sus datos.");
             return;
         }
-        
+
         /**
-         * Ahora checaremos cuanto abono la persona, y si es mayor o igual al minimo por abonar.
+         * Revisando que los textField no sean mas largos que los establecido en
+         * la base de datos
          */
-        if(Float.valueOf(getCantidadAbonada()) < getCantidadMinimoAbono()){
+        if (getNombreCliente().length() > 70) {
+            JOptionPane.showMessageDialog(null, "El nombre del cliente puede tener maximo 70 caracteres");
+            return;
+        }
+
+        if (getTelefonoCliente().length() > 20) {
+            JOptionPane.showMessageDialog(null, "El telefono del cliente puede tener maximo 70 caracteres");
+            return;
+        }
+
+        /**
+         * Ahora checaremos cuanto abono la persona, y si es mayor o igual al
+         * minimo por abonar.
+         */
+        if (Float.valueOf(getCantidadAbonada()) < getCantidadMinimoAbono()) {
             JOptionPane.showMessageDialog(null, "La cantidad que se quiere abonar es menor que la minima aceptada.");
             return;
         }
-        
-        try{
+
+        if (Float.parseFloat(getPagoCon()) < Float.parseFloat(getCantidadAbonada())) {
+            JOptionPane.showMessageDialog(null, "La cantidad con la que pago no puede ser menor a la cantidad abonada.");
+            return;
+        }
+
+        try {
             ControlGui gui = new ControlGui();
-            
+
             /**
              * Si se pudo realizar el apartado, entonces entrar a este if.
              */
-            if(gui.realizarApartado(this)){
+            if (gui.realizarApartado(this)) {
                 //Mostramos la ventana de feria.
                 String mensaje = "Favor de regresar " + getFeria() + " al cliente";
                 String mensaje2 = "FAVOR DE RECORDAR AL CLIENTE QUE SI NO SE REALIZA UN \nABONO EN X DIAS EL APARTADO SERA CANCELADO";
-                
+
                 //Muestra el mensaje
                 JOptionPane.showMessageDialog(null, "El apartado ha sido realizado.\n" + mensaje + "\n" + mensaje2);
-                
+
                 //Nos devolvemos a la pantalla principal.
                 getParent().remove(this);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error. " + e.getMessage());
         }
     }//GEN-LAST:event_botonRealizarApartadoActionPerformed
@@ -524,21 +574,23 @@ public class PanelApartado extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
-        try{
+        try {
             Talla talla = buscarModelo(codigoBarras.getText());
 
-            if(talla != null){
+            if (talla != null) {
                 agregarLineaTabla(talla);
                 codigoBarras.setText("");
-            }
-            else
+            } else if (talla.getInventarioRegular() <= 0) {
+                JOptionPane.showMessageDialog(null, "El modelo con el codigo de barras " + codigoBarras.getText() +" no cuenta con productos en el inventario.");
+            } else {
                 JOptionPane.showMessageDialog(null, "No se encontro el modelo con codigo: " + codigoBarras.getText());
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "No se pudo realizar el apartado. " + e.getMessage());
         }
     }//GEN-LAST:event_botonOkActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonOk;

@@ -5,7 +5,6 @@
  */
 package GUI.Inventario;
 
-
 import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,9 @@ import objetosNegocio.Talla;
 /**
  *
  * @author Roberto Pedraza
- * 
- * Esta clase crea componente Panel del tipo "PanelBajaInventario". Estos componentes seran utilizados por los Paneles de tipo "PanelBajaInventario2"
+ *
+ * Esta clase crea componente Panel del tipo "PanelBajaInventario". Estos
+ * componentes seran utilizados por los Paneles de tipo "PanelBajaInventario2"
  */
 public class PanelBajaInventario extends javax.swing.JPanel {
 
@@ -129,8 +129,6 @@ public class PanelBajaInventario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private List<String> listaBajas = new ArrayList<>();
     private List<TextField> listaTextField = new ArrayList<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -147,22 +145,25 @@ public class PanelBajaInventario extends javax.swing.JPanel {
 
     public void configurarPaneles(List<Talla> tallas) {
         for (int i = 0; i < tallas.size(); i++) {
+//            if (tallas.get(i).getInventarioRegular() > 0) {
             JLabel tallasLabel = new JLabel();
             JLabel cantidadInventario = new JLabel();
             TextField cantidadBajas = new TextField();
             cantidadBajas.setText("0");
-            
+
             tallasLabel.setText(tallas.get(i).getTalla());
             cantidadInventario.setText(Integer.toString(tallas.get(i).getInventarioRegular()));
             listaTextField.add(cantidadBajas);
-            
+
             panelTallas.add(tallasLabel);
             panelCantidadInventario.add(cantidadInventario);
             panelCantidadBaja.add(cantidadBajas);
+//            }
         }
     }
-    
-    public List<String> getBajas(){
+
+    public List<String> getBajas() {
+        List<String> listaBajas = new ArrayList<>();
         for (int i = 0; i < listaTextField.size(); i++) {
             listaBajas.add(listaTextField.get(i).getText());
         }
