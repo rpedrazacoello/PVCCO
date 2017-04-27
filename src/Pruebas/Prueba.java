@@ -4,6 +4,7 @@ package Pruebas;
 import GUI.IniciarSesion.FrameIniciarSesion;
 import com.alee.laf.WebLookAndFeel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -14,7 +15,8 @@ public class Prueba {
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
                 try{
-                    WebLookAndFeel.install();
+                    //WebLookAndFeel.install();
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     new FrameIniciarSesion().setVisible(true);
                 }catch(Exception e){
                     e.printStackTrace();

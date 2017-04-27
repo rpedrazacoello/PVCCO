@@ -288,7 +288,6 @@ public class PanelInventariar extends javax.swing.JPanel {
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         getParent().remove(this);
-        getParent().repaint();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     /**

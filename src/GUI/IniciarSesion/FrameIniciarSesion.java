@@ -145,7 +145,7 @@ public class FrameIniciarSesion extends javax.swing.JFrame {
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         FramePrincipal framePrincipal = new FramePrincipal();
         this.setVisible(false);
-        framePrincipal.setVisible(true);
+        framePrincipal.iniciar();
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
 
     /**
