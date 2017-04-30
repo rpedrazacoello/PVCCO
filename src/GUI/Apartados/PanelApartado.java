@@ -116,7 +116,9 @@ public class PanelApartado extends javax.swing.JPanel {
                     
                         if(cantidadInventario < cantidad){
                             JOptionPane.showMessageDialog(null, "En el inventario regular solamente hay " + cantidadInventario + " zapatos de\n" +
-                                                                "esta talla. Indique un numero menor o igual a la cantidad del inventario.");   
+                                                                "esta talla. Indique un numero menor o igual a la cantidad del inventario.");
+                            
+                            tablaDatos.getModel().setValueAt(cantidadInventario, tme.getFirstRow(), 3);
                             return;
                         }
                     }
@@ -158,7 +160,7 @@ public class PanelApartado extends javax.swing.JPanel {
     public Talla buscarModelo(String codigoBarras) {
         try {
             ControlGui gui = new ControlGui();
-            Modelo modelo = gui.obtenModelo(codigoBarras);
+            Modelo modelo = gui.obtenModeloPorCodigoBarras(codigoBarras);
             
             if(modelo != null){
                 Talla talla = obtenTalla(modelo);
@@ -170,7 +172,8 @@ public class PanelApartado extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Ya no hay zapatos en existencia de esta talla.");
                 }
             }
-            
+            else
+                JOptionPane.showMessageDialog(null, "No existe un modelo con el codigo de barras " + codigoBarras);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,11 +186,15 @@ public class PanelApartado extends javax.swing.JPanel {
                 
         if(talla != null){
             ControlGui gui = new ControlGui();
-            List<Talla> tallas = gui.obtenTallasDeModelo(modelo);
-                
+            List<Talla> tallas = modelo.getTallaList();
+            
+            System.out.println("Buscando tallas del modelo " + modelo.getNombre() + " | Cantidad: " + tallas.size());
+            
             for(Talla t : tallas)
                 if(t.getTalla().equalsIgnoreCase(talla))
                     return t;
+            
+            JOptionPane.showMessageDialog(null, "No existe un zapato registrado de este modelo con talla " + talla);
         }
         
         return null;
@@ -625,8 +632,6 @@ public class PanelApartado extends javax.swing.JPanel {
                 agregarLineaTabla(talla);
                 codigoBarras.setText("");
             }
-            else
-                JOptionPane.showMessageDialog(null, "No existe un zapato registrado de este modelo con talla especificada");
                     
         } catch (Exception e) {
             e.printStackTrace();

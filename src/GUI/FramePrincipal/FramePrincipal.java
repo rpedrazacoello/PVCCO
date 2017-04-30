@@ -364,6 +364,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 while(isVisible()){
                     try{
                         repaint();
+                        
                         Thread.sleep(10);
                     }catch(Exception e){
                         e.printStackTrace();

@@ -10,7 +10,6 @@ import objetosNegocio.Talla;
 import GUI.Control.ControlGui;
 import java.util.ArrayList;
 import java.util.List;
-import objetosNegocio.*;
 
 /**
  *
@@ -30,9 +29,11 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
      */
     public PanelBajaInventario2(List<Modelo> modelos) {
         initComponents();
-            
+        
         this.modelos=modelos;
+        paneles = new ArrayList();
         configurarPanelBajaInventario();
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     /**
@@ -44,20 +45,17 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBajaInventario1 = new GUI.Inventario.PanelBajaInventario();
         jLabel1 = new javax.swing.JLabel();
-        labelNombreModelo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaRazonBaja = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        panelBajas = new javax.swing.JPanel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Modelo:");
-
-        labelNombreModelo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        labelNombreModelo.setText("Nombre del Modelo");
+        jLabel1.setText("Detalle de Baja");
 
         textAreaRazonBaja.setColumns(20);
         textAreaRazonBaja.setRows(5);
@@ -80,6 +78,9 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
             }
         });
 
+        panelBajas.setLayout(new java.awt.GridLayout(0, 1));
+        jScrollPane2.setViewportView(panelBajas);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,57 +88,50 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelNombreModelo)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
-                        .addComponent(panelBajaInventario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botonAceptar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botonCancelar))
+                            .addComponent(jScrollPane2))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botonCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
-                .addGap(28, 28, 28))
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelBajaInventario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel1)
-                        .addGap(87, 87, 87)
-                        .addComponent(labelNombreModelo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAceptar)
-                    .addComponent(botonCancelar))
+                    .addComponent(botonCancelar)
+                    .addComponent(botonAceptar))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        List<String> bajas = this.panelBajaInventario1.getBajas();
         ControlGui control = new ControlGui();
-        if(!control.actualizarInventario(tallas, bajas, textAreaRazonBaja.getText())){
-            return;
-        }
+        
+        for(PanelBajaInventario baja : paneles)
+            control.actualizarInventario(baja.getModelo().getTallaList(), baja.getBajas(), textAreaRazonBaja.getText());
+        
         this.setVisible(false);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -147,25 +141,28 @@ public class PanelBajaInventario2 extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void configurarPanelBajaInventario(){
-        ControlGui control = new ControlGui();
-        Modelo modelo = modelos.get(0);
-        tallas = control.obtenTallasDeModelo(modelo);
-        this.labelNombreModelo.setText(modelo.getNombre());
-        this.panelBajaInventario1.configurarPaneles(tallas);
-        this.panelBajaInventario1.revalidate();
-        this.panelBajaInventario1.repaint();
+        for(Modelo m : modelos){
+            PanelBajaInventario baja = new PanelBajaInventario(m);
+            
+            panelBajas.add(baja);
+            panelBajas.updateUI();
+            
+            updateUI();
+            repaint();
+        }
     }
 
-    private List<Talla> tallas;
     private List<Modelo> modelos;
+    private List<PanelBajaInventario> paneles;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelNombreModelo;
-    private GUI.Inventario.PanelBajaInventario panelBajaInventario1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel panelBajas;
     private javax.swing.JTextArea textAreaRazonBaja;
     // End of variables declaration//GEN-END:variables
 }

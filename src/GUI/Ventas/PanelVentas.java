@@ -54,10 +54,18 @@ public class PanelVentas extends javax.swing.JPanel {
         campoTextoFolio.setText(String.valueOf(gui.obtenVentas().size()));
     }
     
+    
+    /**
+     * Busca una talla en la base de datos por medio de su codigo de barras, y
+     * la regresa.
+     *
+     * @param codigoBarras El codigo de barras de la talla.
+     * @return La talla a regresarse.
+     */
     public Talla buscarModelo(String codigoBarras) {
         try {
             ControlGui gui = new ControlGui();
-            Modelo modelo = gui.obtenModelo(codigoBarras);
+            Modelo modelo = gui.obtenModeloPorCodigoBarras(codigoBarras);
             
             if(modelo != null){
                 Talla talla = obtenTalla(modelo);

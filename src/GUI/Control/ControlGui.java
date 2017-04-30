@@ -49,7 +49,7 @@ public class ControlGui {
                 PanelModelo panelTest = listaPanelTest.get(i);
                 Modelo modelo = new Modelo();
                 Talla talla = new Talla();
-
+                
                 /**
                  * Esto sirve para verificar que los campos no esten vacios. En
                  * dado caso de que si esten, no se conectara a la base de datos
@@ -75,7 +75,9 @@ public class ControlGui {
                      */
                     List<String> listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
                     List<String> listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
-
+                    
+                    int idTalla = admInventario.obtenListaTallas().size();
+                    
                     List<Talla> tallasAgregar = new ArrayList();
                     /**
                      * Igual aqui tenemos que checar que las cantidades de talla
@@ -91,14 +93,18 @@ public class ControlGui {
                             if (!String.valueOf(listaCantidades.get(j)).isEmpty()) {
                                 if (Integer.parseInt(listaCantidades.get(j)) > 0) {
                                     talla.setIdModelo(modelo);
-                                    talla.setIdTalla(Integer.toString(admInventario.obtenListaTallas().size()));
+                                    talla.setIdTalla(Integer.toString(idTalla));
                                     talla.setTalla(listaTallas.get(j));
                                     talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
                                     talla.setInventarioApartado(0);
-
+                                    
+                                    
+                                    admInventario.agregarProductoAInventario(talla);
                                     //Aun no sabemos si los datos son validos.
                                     //A lo ultimo agregarmos todas las tallas creadas al inventario.
                                     tallasAgregar.add(talla);
+                                    
+                                    idTalla++;
                                 } else if (Integer.parseInt(listaCantidades.get(j)) < 0) {
                                     JOptionPane.showMessageDialog(null, "Una de las cantidades es negativa.\n"
                                             + "Modelo: " + modelo.getNombre() + "\n");
@@ -110,10 +116,6 @@ public class ControlGui {
                             }
                         }
 
-                        //Ahora si los agregamos a la base de datos.
-                        for (Talla t : tallasAgregar) {
-                            admInventario.agregarProductoAInventario(t);
-                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Indique la cantidad de talla y producto");
                         return false;
@@ -175,7 +177,7 @@ public class ControlGui {
                 }
             }
 
-            apartado.setTallaapartadoList(tallasApartadas);
+            apartado.setTallaApartadoList(tallasApartadas);
             apartado.setNombreCliente(panel.getNombreCliente());
             apartado.setTelefono(panel.getTelefonoCliente());
             apartado.setPrecioTotal(panel.getTotal());
@@ -232,17 +234,17 @@ public class ControlGui {
      * de datos y si el modelo con ese nombre existe, regresa el modelo. Si no
      * existe regresa null.
      *
-     * @param codigoDeBarras El numero de codigo de barras del modelo.
+     * @param Busca el modelo mediante el nombre
      * @return
      */
-    public Modelo obtenModelo(String codigoDeBarras) {
+    public Modelo obtenModelo(String nombre) {
         List<Modelo> modelos;
         FacAdmInventario admInventario = new FacAdmInventario();
 
         try {
             modelos = admInventario.obtenListaModelos();
             for (int i = 0; i < modelos.size(); i++) {
-                if (modelos.get(i).getNoCodigoDeBarras().equalsIgnoreCase(codigoDeBarras)) {
+                if (modelos.get(i).getNombre().equalsIgnoreCase(nombre)) {
                     return modelos.get(i);
                 }
             }
@@ -252,7 +254,32 @@ public class ControlGui {
 
         return null;
     }
+    
+    /**
+     * Este metodo recibe el nombre de un modelo, el metodo lo busca en la base
+     * de datos y si el modelo con ese nombre existe, regresa el modelo. Si no
+     * existe regresa null.
+     *
+     * @param Busca el modelo mediante el nombre
+     * @return
+     */
+    public Modelo obtenModeloPorCodigoBarras(String nombre) {
+        List<Modelo> modelos;
+        FacAdmInventario admInventario = new FacAdmInventario();
 
+        try {
+            modelos = admInventario.obtenListaModelos();
+            for (int i = 0; i < modelos.size(); i++) {
+                if (modelos.get(i).getNoCodigoDeBarras().equalsIgnoreCase(nombre)) {
+                    return modelos.get(i);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
     /**
      * Regresa la lista de modelos.
      *

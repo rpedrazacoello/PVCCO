@@ -195,7 +195,7 @@ public class FrameEscanearParaInventariar extends javax.swing.JFrame {
         if(comboBoxBuscar.getSelectedIndex() != -1 && !((String)comboBoxBuscar.getSelectedItem()).isEmpty()){
             ControlGui control = new ControlGui();
             Modelo modelo = control.obtenModelo((String) comboBoxBuscar.getSelectedItem());
-
+            
             if ((!listaModelos.contains(modelo)) && modelo != null) {
                 listaModelos.add(modelo);
                 JLabel label = new JLabel(modelo.getNombre());
