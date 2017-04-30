@@ -13,6 +13,7 @@ import objetosNegocio.Usuario;
 import GUI.Apartados.PanelApartado;
 import GUI.Inventario.PanelInventariar;
 import GUI.Inventario.PanelModelo;
+import GUI.Inventario.PanelTalla;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,13 +71,13 @@ public class ControlGui {
                     modelo.setPrecio(panelTest.getPrecio());
                     modelo.setNoCodigoDeBarras(String.valueOf(obtenModelos().size()));
                     
-                    /**
-                     * De los PanelTalla que hay dentro de los PanelTest
-                     * obtenemos la informacion de las tallas y las cantidades
-                     * que hay de cada talla.
-                     */
-                    List<String> listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
-                    List<String> listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
+                    List<String> listaCantidades = new ArrayList();
+                    List<String> listaTallas = new ArrayList();
+
+                    for(PanelTalla panel : panelTest.getPanelesTalla()){
+                        listaTallas.add(panel.getTalla());
+                        listaCantidades.add(panel.getCantidad());
+                    }
                     
                     int idTalla = admInventario.obtenListaTallas().size();
                     
@@ -85,7 +86,7 @@ public class ControlGui {
                      * Igual aqui tenemos que checar que las cantidades de talla
                      * y producto no esten vacios.
                      */
-                    if (listaCantidades.size() != 0 && listaTallas.size() != 0) {
+                    if (!listaCantidades.isEmpty() && !listaTallas.isEmpty()) {
                         /**
                          * Con este for sacamos los datos de las listas y los
                          * metemos a un objeto de tipo Talla. El cual despues

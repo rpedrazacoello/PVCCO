@@ -75,8 +75,6 @@ public class PanelInventariar extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         titulo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         botonSiguiente = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         botonAgregarColumna = new javax.swing.JButton();
@@ -85,16 +83,11 @@ public class PanelInventariar extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel1.setLayout(new java.awt.GridLayout(0, 1));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1422, 229));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
         jScrollPane2.setViewportView(jPanel1);
 
         titulo.setText("Agregar Nuevo Producto");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("Modelo");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Tallas");
 
         botonSiguiente.setText("Siguiente");
         botonSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -137,13 +130,7 @@ public class PanelInventariar extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                        .addGap(596, 596, 596))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(426, 426, 426)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(91, 91, 91))))
+                        .addGap(596, 596, 596))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,11 +140,7 @@ public class PanelInventariar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
@@ -212,30 +195,59 @@ public class PanelInventariar extends javax.swing.JPanel {
 
         /**
          * Verifica que los datos de cantidades y tallas sean correctos
-         */
-        for (int i = 0; i < listaPanelTest.size(); i++) {
-            if (listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size() == 0) {
-                error += "\n Tienes que agregar minimo talla con su respectiva cantidad.";
-                break;
-            }
-            int cantidadPanelTalla = listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size();
-            for (int j = 0; j < cantidadPanelTalla; j++) {
-                try {
-                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j));
-                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j));
+//         */
+//        for (int i = 0; i < listaPanelTest.size(); i++) {
+//            if (listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size() == 0) {
+//                error += "\n Tienes que agregar minimo talla con su respectiva cantidad.";
+//                break;
+//            }
+//            int cantidadPanelTalla = listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().size();
+//            for (int j = 0; j < cantidadPanelTalla; j++) {
+//                try {
+//                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j));
+//                    Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j));
+//
+//                    if (Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j)) < 0
+//                            || Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j)) < 0) {
+//                        error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
+//                        break;
+//                    }
+//                } catch (Exception e) {
+//                    error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
+//                    break;
+//                }
+//            }
+//        }
 
-                    if (Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaTallasTexto().get(j)) < 0
-                            || Integer.parseInt(listaPanelTest.get(i).getPanelTalla().getListaCantidadesTexto().get(j)) < 0) {
-                        error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
-                        break;
-                    }
-                } catch (Exception e) {
-                    error += "\n Las cantidades y tallas de los productos tienen que ser numeros enteros mayores que 0";
+        for(PanelModelo panelModelo : listaPanelTest){
+            List<PanelTalla> tallas = panelModelo.getPanelesTalla();
+            
+            for(PanelTalla panelTalla : tallas){
+                
+                if(panelTalla.getTalla().isEmpty()){
+                    error+= "\nEn el panel del modelo: " + panelModelo.getModelo() + " hay \n" +
+                            "una talla que esta vacia.\n";
+                    break;
+                }
+                
+                int cantidad;
+                
+                try{
+                    cantidad = Integer.parseInt(panelTalla.getCantidad());
+                }catch(Exception e){
+                    error+= "\nEn el panel del modelo: " + panelModelo.getModelo() + " en la talla\n" +
+                            panelTalla.getTalla() + ", la cantidad no es un numero. Verifique sus datos.\n";
+                    break;
+                }
+                
+                if(cantidad < 0){
+                    error+= "\nEn el panel del modelo: " + panelModelo.getModelo() + " en la talla\n" +
+                            panelTalla.getTalla() + ", la cantidad es negativa. Verifique sus datos.\n";
                     break;
                 }
             }
         }
-
+        
         /**
          * Si el string error no esta vacio, se imprimen los errores.
          */
@@ -312,8 +324,6 @@ public class PanelInventariar extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregarColumna;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonSiguiente;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

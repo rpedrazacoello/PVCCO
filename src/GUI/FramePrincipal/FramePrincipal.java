@@ -27,7 +27,8 @@ public class FramePrincipal extends javax.swing.JFrame {
      */
     public FramePrincipal() {
         initComponents();
-        jPanel1.add(new PanelVentas());
+        
+        jPanel1.add(new PanelNormal());
         setLocationRelativeTo(null);
     }
 
@@ -59,6 +60,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemAgregarApartado = new javax.swing.JMenuItem();
         menuItemAbonarApartado = new javax.swing.JMenuItem();
         menuItemCancelarApartado = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuVentasRealizarVenta = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Punto de Venta Centro de Calzado Ciudad Obregon - PVCCO BETA");
@@ -255,6 +258,18 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setText("Ventas");
+
+        menuVentasRealizarVenta.setText("Realizar Venta");
+        menuVentasRealizarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVentasRealizarVentaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuVentasRealizarVenta);
+
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -378,6 +393,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemCancelarApartadoActionPerformed(evt);
     }//GEN-LAST:event_botonCancelarApartadoActionPerformed
 
+    private void menuVentasRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVentasRealizarVentaActionPerformed
+        jPanel1.removeAll();
+        jPanel1.updateUI();
+        jPanel1.add(new PanelVentas());
+    }//GEN-LAST:event_menuVentasRealizarVentaActionPerformed
+
     public void iniciar(){
         setVisible(true);
         requestFocusInWindow();
@@ -426,6 +447,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -438,5 +460,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAgregarProductoRegistrado;
     private javax.swing.JMenuItem menuItemBajaInventario;
     private javax.swing.JMenuItem menuItemCancelarApartado;
+    private javax.swing.JMenuItem menuVentasRealizarVenta;
     // End of variables declaration//GEN-END:variables
 }

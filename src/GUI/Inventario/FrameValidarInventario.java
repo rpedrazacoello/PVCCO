@@ -49,19 +49,20 @@ public class FrameValidarInventario extends javax.swing.JFrame {
                 modelo.setNombre(panelTest.getModelo());
                 modelo.setPrecio(panelTest.getPrecio());
 
-                /**
-                 * De los PanelTalla que hay dentro de los PanelTest obtenemos
-                 * la informacion de las tallas y las cantidades que hay de cada
-                 * talla.
-                 */
-                List<String> listaCantidades = panelTest.getPanelTalla().getListaCantidadesTexto();
-                List<String> listaTallas = panelTest.getPanelTalla().getListaTallasTexto();
+                List<String> listaCantidades = new ArrayList();
+                List<String> listaTallas = new ArrayList();
+                
+                for(PanelTalla panel : panelTest.getPanelesTalla()){
+                    listaTallas.add(panel.getTalla());
+                    listaCantidades.add(panel.getCantidad());
+                }
+                
 
                 /**
                  * Igual aqui tenemos que checar que las cantidades de talla y
                  * producto no esten vacios.
                  */
-                if (listaCantidades.size() != 0 && listaTallas.size() != 0) {
+                if (!listaCantidades.isEmpty() && !listaTallas.isEmpty()) {
                     PanelDetalleModelo panel = new PanelDetalleModelo(modelo, listaTallas, listaCantidades);
                         
                     panelDatos.add(panel);
