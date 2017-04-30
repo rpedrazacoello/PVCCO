@@ -204,9 +204,11 @@ public class ControlGui {
         try{
             IntAdmVentas ventas = new FacAdmVentas();
             
-            ventas.realizarVenta(tallas, cantidades, 0);
+            ventas.realizarVenta(tallas, cantidades, precioTotal);
+            return true;
         }catch(Exception e){
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
         
         return false;

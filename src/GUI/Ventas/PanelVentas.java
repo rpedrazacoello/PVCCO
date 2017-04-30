@@ -250,6 +250,23 @@ public class PanelVentas extends javax.swing.JPanel {
      * Realiza una venta y añade los datos subsecuentes a la base de datos
      */
     private void realizarVenta(){
+        float cantidadPagada;
+        
+        try{
+            cantidadPagada = Float.parseFloat(campoTextoPagoCon.getText());
+            
+            if(cantidadPagada < 0){
+                JOptionPane.showMessageDialog(null, "La cantidad pagada no puede ser negativa.");
+                return;
+            }
+            else if(cantidadPagada < Float.parseFloat(campoTextoTotalVenta.getText())){
+                JOptionPane.showMessageDialog(null, "La cantidad pagada es menor que el total de venta.");
+                return;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "El pago del cliente tiene que ser un valor numerico.");
+        }
+        
         ControlGui gui = new ControlGui();
 
         List<String[]> datos = new ArrayList();
@@ -282,7 +299,40 @@ public class PanelVentas extends javax.swing.JPanel {
             cantidades.add(new Integer(lineaDatos[3]));
         }
         
-        gui.realizarVenta(tallas, cantidades, Float.parseFloat(campoTextoTotalVenta.getText()));
+        if(gui.realizarVenta(tallas, cantidades, Float.parseFloat(campoTextoTotalVenta.getText()))){
+            JOptionPane.showMessageDialog(null, "Se ha realizado la venta exitosamente.");
+            restaurarTodo();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Hubo un problema realizando la venta.");
+    }
+    
+    /**
+     * Elimina las cosas de la tabla y resetea el panel.
+     */
+    private void restaurarTodo(){
+        DefaultTableModel dm = (DefaultTableModel) tablaVenta.getModel();
+        int rowCount = dm.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            dm.removeRow(i);
+        }
+        
+        campoTextoPagoCon.setText("");
+        campoTextoTotalVenta.setText("");
+        
+        new Thread(new Runnable(){
+            public void run(){
+                try{
+                    while(getParent() != null){
+                        campoTextoFolio.setText(String.valueOf(new ControlGui().obtenVentas().size()));
+                        Thread.sleep(3000);
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
     
     /**
@@ -526,7 +576,10 @@ public class PanelVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        realizarVenta();
+        if(!campoTextoPagoCon.getText().isEmpty())
+            realizarVenta();
+        else
+            JOptionPane.showMessageDialog(null, "No especifico cuanto pago el cliente.");
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void campoTextoCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoCodigoBarrasKeyReleased
