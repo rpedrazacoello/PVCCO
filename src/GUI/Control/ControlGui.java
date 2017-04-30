@@ -19,9 +19,11 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import negocios.admApartados.FacAdmApartados;
 import negocios.admInventario.FacAdmInventario;
+import negocios.admVentas.FacAdmVentas;
 import objetosNegocio.*;
 import pvcco.interfaces.IntAdmApartados;
 import pvcco.interfaces.IntAdmInventario;
+import pvcco.interfaces.IntAdmVentas;
 
 /**
  *
@@ -197,6 +199,24 @@ public class ControlGui {
         return false;
     }
 
+    public boolean realizarVenta(List<Talla> tallas, List<Integer> cantidades, float precioTotal){
+        try{
+            IntAdmVentas ventas = new FacAdmVentas();
+            
+            ventas.realizarVenta(tallas, cantidades, 0);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Cancela un apartado y lo marca como inactivo.
+     * 
+     * @param apartado Un apartado que ya ha vencido.
+     * @return 
+     */
     public boolean cancelarApartado(Apartado apartado) {
         try {
             IntAdmApartados adm = new FacAdmApartados();

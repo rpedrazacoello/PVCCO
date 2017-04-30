@@ -10,6 +10,7 @@ import GUI.ventas.ButtonColumn;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Modelo;
 import objetosNegocio.Talla;
@@ -36,6 +39,7 @@ public class PanelVentas extends javax.swing.JPanel {
     public PanelVentas() {
         initComponents();
         llenarDatosIniciales();
+        agregarListener();
         
         tallas = new HashMap();
     }
@@ -55,6 +59,65 @@ public class PanelVentas extends javax.swing.JPanel {
         campoTextoFolio.setText(String.valueOf(gui.obtenVentas().size()));
     }
     
+    private void agregarListener() {
+        tablaVenta.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent tme) {
+                //Si la columna 3, que es la cantidad fue la que se modifico..
+                if (tme.getColumn() == 3) {
+                    //Obtenemos el valor en cantidad, que se ubica en la columna 3
+                    int cantidad = Integer.parseInt(String.valueOf(tablaVenta.getModel().getValueAt(tme.getFirstRow(), 3)));
+
+                    ControlGui control = new ControlGui();
+                    Modelo modelo = control.obtenModelo((String) tablaVenta.getModel().getValueAt(tme.getFirstRow(), 0));
+                    
+                    Talla tallaSeleccionada = null;
+                    
+                    for(Talla t : modelo.getTallaList()){
+                        if(t.getTalla().equals(String.valueOf(tablaVenta.getModel().getValueAt(tme.getFirstRow(), 1)))){
+                            tallaSeleccionada = t;
+                            break;
+                        }
+                    }
+                    
+                    if(tallaSeleccionada != null){
+                        int cantidadInventario = tallaSeleccionada.getInventarioRegular();
+                    
+                        if(cantidadInventario < cantidad){
+                            JOptionPane.showMessageDialog(null, "En el inventario regular solamente hay " + cantidadInventario + " zapatos de\n" +
+                                                                "esta talla. Indique un numero menor o igual a la cantidad del inventario.");
+                            
+                            tablaVenta.getModel().setValueAt(cantidadInventario, tme.getFirstRow(), 3);
+                            return;
+                        }
+                    }
+                    /**
+                     * Verifica que la cantidad sea mayor a 1, si no es asi le
+                     * dice al usuario que la cantidad debe de ser mayor a uno y
+                     * modifica a 1 la cantidad.
+                     */
+                    if (cantidad < 1) {
+                        JOptionPane.showMessageDialog(null, "La cantidad no puede ser menor que 1");
+                        tablaVenta.getModel().setValueAt(1, tme.getFirstRow(), 3);
+                        return;
+                    }
+                    
+                    //Obtenemos el precio que se ubica en la columna 3
+                    double precio = Double.parseDouble(String.valueOf(tablaVenta.getModel().getValueAt(tme.getFirstRow(), 2)));
+
+                    //Multiplicamos cantidad * precio y se lo seteamos al total, en columna 4
+                    tablaVenta.getModel().setValueAt(cantidad * precio, tme.getFirstRow(), 4);
+
+                    Talla talla = (Talla) tallas.keySet().toArray()[tme.getFirstRow()];
+                    String[] datosNumericos = new String[]{String.valueOf(precio), String.valueOf(cantidad)};
+                    tallas.put(talla, datosNumericos);
+
+                    //Calculamos el precio total de toda la tabla
+                    calcularPrecioTotal();
+                }
+            }
+        });
+    }
     
     /**
      * Busca una talla en la base de datos por medio de su codigo de barras, y
@@ -111,6 +174,22 @@ public class PanelVentas extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tablaVenta.getModel();
 
         String modelo = talla.getIdModelo().getNombre();
+        
+        //Primero vamos a checar si ya esta la talla de este modelo en la linea.
+        //En dado caso que si, en lugar de agregar una nueva linea tenemos que añadir un +1
+        //a la linea de cantidad de esa talla en ese modelo.
+        
+        for(int i = 0; i < tablaVenta.getRowCount(); i++){
+            String nombreModelo = String.valueOf(tablaVenta.getModel().getValueAt(i, 0));
+            
+            if(nombreModelo.equalsIgnoreCase(modelo)){
+                if(String.valueOf(tablaVenta.getModel().getValueAt(i, 1)).equalsIgnoreCase(talla.getTalla())){
+                    tablaVenta.getModel().setValueAt(Integer.parseInt(tablaVenta.getModel().getValueAt(i, 3).toString()) + 1, i, 3);
+                    return;
+                }
+            }
+        }
+        
         String noTalla = talla.getTalla();
         String precio = String.valueOf(talla.getIdModelo().getPrecio());
         String cantidad = String.valueOf(1);
@@ -167,6 +246,44 @@ public class PanelVentas extends javax.swing.JPanel {
         campoTextoTotalVenta.setText(String.format("%.2f", total).replaceFirst(",", "."));
     }
 
+    /**
+     * Realiza una venta y añade los datos subsecuentes a la base de datos
+     */
+    private void realizarVenta(){
+        ControlGui gui = new ControlGui();
+
+        List<String[]> datos = new ArrayList();
+        
+        for(int i = 0; i < tablaVenta.getRowCount(); i++){
+            String[] linea = new String[5];
+            
+            linea[0] = String.valueOf(tablaVenta.getValueAt(i, 0)); //Nombre Modelo
+            linea[1] = String.valueOf(tablaVenta.getValueAt(i, 1)); //Talla
+            linea[2] = String.valueOf(tablaVenta.getValueAt(i, 2)); //Precio
+            linea[3] = String.valueOf(tablaVenta.getValueAt(i, 3)); //Cantidad
+            linea[4] = String.valueOf(tablaVenta.getValueAt(i, 4)); //Subtotal
+            
+            datos.add(linea);
+        }
+        
+        List<Talla> tallas = new ArrayList();
+        List<Integer> cantidades = new ArrayList();
+
+        for(String[] lineaDatos : datos){
+            Modelo m = gui.obtenModelo(lineaDatos[0]);
+            
+            for(Talla t : m.getTallaList()){
+                if(t.getTalla().equalsIgnoreCase(lineaDatos[1])){
+                    tallas.add(t);
+                    break;
+                }
+            }
+            
+            cantidades.add(new Integer(lineaDatos[3]));
+        }
+        
+        gui.realizarVenta(tallas, cantidades, Float.parseFloat(campoTextoTotalVenta.getText()));
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -247,6 +364,11 @@ public class PanelVentas extends javax.swing.JPanel {
         botonAceptar.setText("   Realizar Venta");
         botonAceptar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         botonAceptar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Total de Venta:");
@@ -268,6 +390,12 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel8.setText("Pago Con:");
 
         jLabel4.setText("Ingrese el codigo de barras");
+
+        campoTextoCodigoBarras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoTextoCodigoBarrasKeyReleased(evt);
+            }
+        });
 
         botonBuscarModelo.setText("Buscar");
         botonBuscarModelo.addActionListener(new java.awt.event.ActionListener() {
@@ -377,6 +505,7 @@ public class PanelVentas extends javax.swing.JPanel {
 
             if (talla != null) {
                 agregarLineaTabla(talla);
+                
                 campoTextoCodigoBarras.setText("");
             }
                     
@@ -395,6 +524,17 @@ public class PanelVentas extends javax.swing.JPanel {
         parent.remove(this);
         parent.repaint();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        realizarVenta();
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void campoTextoCodigoBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoCodigoBarrasKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            botonBuscarModeloActionPerformed(null);
+            requestFocusInWindow();
+        }
+    }//GEN-LAST:event_campoTextoCodigoBarrasKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
