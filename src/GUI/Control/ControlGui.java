@@ -5,6 +5,11 @@
  */
 package GUI.Control;
 
+import objetosNegocio.Apartado;
+import objetosNegocio.Modelo;
+import objetosNegocio.Venta;
+import objetosNegocio.Talla;
+import objetosNegocio.Usuario;
 import GUI.Apartados.PanelApartado;
 import GUI.Inventario.PanelInventariar;
 import GUI.Inventario.PanelModelo;
@@ -61,7 +66,8 @@ public class ControlGui {
                     modelo.setIdModelo(Integer.toString(admInventario.obtenListaModelos().size()));
                     modelo.setNombre(panelTest.getModelo());
                     modelo.setPrecio(panelTest.getPrecio());
-
+                    modelo.setNoCodigoDeBarras(String.valueOf(obtenModelos().size()));
+                    
                     /**
                      * De los PanelTalla que hay dentro de los PanelTest
                      * obtenemos la informacion de las tallas y las cantidades
@@ -89,7 +95,6 @@ public class ControlGui {
                                     talla.setTalla(listaTallas.get(j));
                                     talla.setInventarioRegular(new Integer(listaCantidades.get(j)));
                                     talla.setInventarioApartado(0);
-                                    talla.setNoCodigoDeBarras(talla.getIdTalla());
 
                                     //Aun no sabemos si los datos son validos.
                                     //A lo ultimo agregarmos todas las tallas creadas al inventario.
@@ -170,7 +175,7 @@ public class ControlGui {
                 }
             }
 
-            apartado.setTallaApartadoCollection(tallasApartadas);
+            apartado.setTallaapartadoList(tallasApartadas);
             apartado.setNombreCliente(panel.getNombreCliente());
             apartado.setTelefono(panel.getTelefonoCliente());
             apartado.setPrecioTotal(panel.getTotal());
@@ -227,21 +232,22 @@ public class ControlGui {
      * de datos y si el modelo con ese nombre existe, regresa el modelo. Si no
      * existe regresa null.
      *
-     * @param modelo
+     * @param codigoDeBarras El numero de codigo de barras del modelo.
      * @return
      */
-    public Modelo obtenModelo(String modelo) {
+    public Modelo obtenModelo(String codigoDeBarras) {
         List<Modelo> modelos;
         FacAdmInventario admInventario = new FacAdmInventario();
 
         try {
             modelos = admInventario.obtenListaModelos();
             for (int i = 0; i < modelos.size(); i++) {
-                if (modelos.get(i).getNombre().equalsIgnoreCase(modelo)) {
+                if (modelos.get(i).getNoCodigoDeBarras().equalsIgnoreCase(codigoDeBarras)) {
                     return modelos.get(i);
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return null;
@@ -341,5 +347,9 @@ public class ControlGui {
         }
 
         return false;
+    }
+    
+    public List<Venta> obtenVentas(){
+        return new ArrayList<Venta>();
     }
 }

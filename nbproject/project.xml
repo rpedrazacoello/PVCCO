@@ -29,6 +29,22 @@
                 <id>jar</id>
             </reference>
             <reference>
+                <foreign-project>PVCCO_-_AdmVentas</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PVCCO_-_ObjetosNegocio</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>PVCCO_-_ObjetosNegocio-1</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>

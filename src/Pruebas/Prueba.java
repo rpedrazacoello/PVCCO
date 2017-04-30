@@ -2,7 +2,6 @@
 package Pruebas;
 
 import GUI.IniciarSesion.FrameIniciarSesion;
-import com.alee.laf.WebLookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 

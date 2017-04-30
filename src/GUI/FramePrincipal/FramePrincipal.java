@@ -10,7 +10,7 @@ import GUI.Apartados.FrameCancelarApartado;
 import GUI.Apartados.PanelApartado;
 import GUI.Inventario.FrameEscanearParaInventariar;
 import GUI.Inventario.PanelInventariar;
-import java.awt.Component;
+import GUI.Ventas.PanelVentas;
 import javax.swing.JPanel;
 
 /**
@@ -27,7 +27,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      */
     public FramePrincipal() {
         initComponents();
-        jPanel1.add(new PanelNormal());
+        jPanel1.add(new PanelVentas());
         setLocationRelativeTo(null);
     }
 
@@ -357,7 +357,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     public void iniciar(){
         setVisible(true);
-                
+        requestFocusInWindow();
+        
         new Thread(new Runnable(){
             public void run(){
                 while(isVisible()){

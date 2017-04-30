@@ -5,6 +5,8 @@
  */
 package GUI.Inventario;
 
+import objetosNegocio.Modelo;
+import objetosNegocio.Talla;
 import GUI.Control.ControlGui;
 import java.util.ArrayList;
 import java.util.List;
