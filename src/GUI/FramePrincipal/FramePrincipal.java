@@ -61,8 +61,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         menuItemCancelarApartado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Punto de Venta Centro de Calzado Ciudad Obregon - PVCCO BETA");
         setResizable(false);
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+
+        botonAgregarProducto.setBackground(new java.awt.Color(102, 102, 255));
+        botonAgregarProducto.setForeground(new java.awt.Color(51, 51, 51));
         botonAgregarProducto.setText("<html> Agregar<br> Producto</html>");
         botonAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +75,8 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botonRealizarApartado.setBackground(new java.awt.Color(102, 102, 255));
+        botonRealizarApartado.setForeground(new java.awt.Color(51, 51, 51));
         botonRealizarApartado.setText("<html> Realizar<br> Apartado</html>");
         botonRealizarApartado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +84,8 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botonCancelarApartado.setBackground(new java.awt.Color(102, 102, 255));
+        botonCancelarApartado.setForeground(new java.awt.Color(51, 51, 51));
         botonCancelarApartado.setText("<html> Cancelar<br> Apartado</html>");
         botonCancelarApartado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,8 +93,12 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Inventario");
 
+        botonAgregarExistente.setBackground(new java.awt.Color(102, 102, 255));
+        botonAgregarExistente.setForeground(new java.awt.Color(51, 51, 51));
         botonAgregarExistente.setText("<html> \nAgregar<br>\nExistente\n</html>");
         botonAgregarExistente.setAlignmentX(0.5F);
         botonAgregarExistente.setHideActionText(true);
@@ -96,8 +109,14 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Apartados");
 
+        jSeparator2.setForeground(new java.awt.Color(0, 51, 255));
+
+        botonAbonarApartado.setBackground(new java.awt.Color(102, 102, 255));
+        botonAbonarApartado.setForeground(new java.awt.Color(51, 51, 51));
         botonAbonarApartado.setText("<html> Abonar<br> Apartado</html>");
         botonAbonarApartado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +124,8 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botonBajaInventario.setBackground(new java.awt.Color(102, 102, 255));
+        botonBajaInventario.setForeground(new java.awt.Color(51, 51, 51));
         botonBajaInventario.setText("<html> \nBaja<br>\nInventario \n</html>");
         botonBajaInventario.setAlignmentX(0.5F);
         botonBajaInventario.setHideActionText(true);
@@ -171,6 +192,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         jPanel1.setName("panelCosas"); // NOI18N
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(jPanel1);
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jMenu1.setText("Inventario");
 
@@ -241,7 +264,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
